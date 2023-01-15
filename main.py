@@ -25,17 +25,17 @@ choose_level = pygame_gui.elements.ui_drop_down_menu.UIDropDownMenu(
 
 start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((500, 275), (150, 60)),
                                     text='Start',
-                                    tool_tip_text='Нажми ты уже эту кнопку!!!',
+                                    tool_tip_text='Нажми ты уже эту кнопку!',
                                     manager=manager)
 
 rule_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((700, 275), (150, 50)),
                                     text='Rules',
-                                    tool_tip_text='Нажми ты уже эту кнопку!!!',
+                                    tool_tip_text='Нажми ты уже эту кнопку!',
                                     manager=manager)
 
-back_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 0), (150, 50)),
+back_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((930, 20), (150, 50)),
                                     text='Come back',
-                                    tool_tip_text='Нажми ты уже эту кнопку!!!',
+                                    tool_tip_text='Нажми ты уже эту кнопку!',
                                     manager=manager)
 
 clock = pygame.time.Clock()
@@ -46,11 +46,11 @@ mode = 'main'
 
 while running:
     time_delta = clock.tick(60) / 1000
-    
+
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
-            confirmation_dialog = pygame_gui.windows.UIConfirmationDialog(
+            confirmation_dialog1 = pygame_gui.windows.UIConfirmationDialog(
                 rect=pygame.Rect((400, 100), (300, 200)),
                 manager=manager,
                 window_title='Подтверждение',
@@ -58,9 +58,9 @@ while running:
                 action_short_name='YES',
                 blocking=True)
 
-        if event.type == pygame.USEREVENT:
-            if event.user_type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
-                running = False
+        if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
+            running = False
+
         manager.process_events(event)
     manager.update(time_delta)
     
@@ -114,7 +114,6 @@ while running:
 
         pict2 = pygame.image.load('rules.png')
         graf2 = pict2.get_rect(bottomright=(1100, 600))
-
         screen.blit(pict2, graf2)
 
     manager.draw_ui(screen)
