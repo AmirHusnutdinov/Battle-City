@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="70" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="31" nextobjectid="308">
+ <tileset firstgid="1" name="Tiles" tilewidth="32" tileheight="32" tilecount="81" columns="9">
+  <image source="../../Загрузки/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/PSD/Tiles.png" trans="b3afbb" width="288" height="288"/>
+ </tileset>
+ <tileset firstgid="82" name="Objects" tilewidth="32" tileheight="32" tilecount="42" columns="7">
+  <image source="../../Загрузки/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/PSD/Objects.png" trans="b3afbb" width="224" height="192"/>
+ </tileset>
+ <tileset firstgid="124" name="Animated_objects" tilewidth="32" tileheight="32" tilecount="96" columns="12">
+  <image source="../../Загрузки/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/PSD/Animated_objects.png" trans="b3afbb" width="384" height="256"/>
+  <tile id="0">
+   <animation>
+    <frame tileid="0" duration="500"/>
+    <frame tileid="3" duration="500"/>
+    <frame tileid="6" duration="500"/>
+    <frame tileid="9" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="1">
+   <animation>
+    <frame tileid="1" duration="500"/>
+    <frame tileid="4" duration="500"/>
+    <frame tileid="7" duration="500"/>
+    <frame tileid="10" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="2">
+   <animation>
+    <frame tileid="2" duration="500"/>
+    <frame tileid="5" duration="500"/>
+    <frame tileid="8" duration="500"/>
+    <frame tileid="11" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="12">
+   <animation>
+    <frame tileid="12" duration="500"/>
+    <frame tileid="13" duration="500"/>
+    <frame tileid="14" duration="500"/>
+    <frame tileid="15" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="36">
+   <animation>
+    <frame tileid="36" duration="500"/>
+    <frame tileid="37" duration="500"/>
+    <frame tileid="38" duration="500"/>
+    <frame tileid="39" duration="500"/>
+    <frame tileid="40" duration="500"/>
+    <frame tileid="41" duration="500"/>
+    <frame tileid="42" duration="500"/>
+    <frame tileid="43" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="48">
+   <animation>
+    <frame tileid="48" duration="500"/>
+    <frame tileid="49" duration="500"/>
+    <frame tileid="50" duration="500"/>
+    <frame tileid="51" duration="500"/>
+    <frame tileid="52" duration="500"/>
+    <frame tileid="53" duration="500"/>
+    <frame tileid="54" duration="500"/>
+    <frame tileid="55" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="56">
+   <animation>
+    <frame tileid="56" duration="500"/>
+    <frame tileid="57" duration="500"/>
+    <frame tileid="58" duration="500"/>
+    <frame tileid="59" duration="500"/>
+   </animation>
+  </tile>
+ </tileset>
+ <tileset firstgid="220" name="1" tilewidth="40" tileheight="48" tilecount="1" columns="1">
+  <image source="../../Загрузки/craftpix-net-407640-free-effects-for-platformer-pixel-art-pack/6 Extra/Objects/Capsule/1.png" width="50" height="48"/>
+ </tileset>
+ <tileset firstgid="221" name="Backgroundnew" tilewidth="32" tileheight="32" tilecount="720" columns="36">
+  <image source="../../Загрузки/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/2 Background/Backgroundnew.png" width="1152" height="648"/>
+ </tileset>
+ <layer id="11" name="background" width="70" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA83Vw4JYBwBA0clMbNu2bdu2bdu2bTtt0sZpw5pJG1QT2zZ6PuMtzv7ubnhISMhFLnGZK1zlGte5wU1ucZs73OUe93nAQx7xmCc85RnPecFLXvGaN7zlHe/5wEc+ERIhJCQ8ID0RtIQSRkQiEZkoRCUa0YlBTGIRmzjEJR7xSUBCEpGYJCQlGclJQUpSkZo0pCUd6clAxgjB6clEZrKQlWxkJwc5yUVu8pCXfOSnAAUpRGGKUJRiFKcEJSlFacpQlnKUpwIVqURlqlA1QD3VqE4NalKL2tShLvWoTwMa0ojGNKEpzWhOC1rSita0oS3taE8HOtKJznShK93oTg96BqinF73pQ1/60Z8BDGQQgxnCUIYxnBGMZBSjGcNYxjGeCUxkEpOZwlSmMZ0ZzGQWs5nD3AD1zGM+C1jIIhazhKUsYzkrWMkqVrOGtaxjPRvYyCY2s4WtbGM7O9jJLj7jc3azhy/4kr0B6tnHfg5wkEMc5ghf8TVHOcZxTnCSU3zDt3zH9/zAj/zEz/zCr/zG75zmDH/wJ2c5x3ku8FeAev7mH/7lP8K5yCUuc4WrXOM6N7jJLW5zh7vc4z4PeMgjHvOEpzzjOS94ySte84a3vON9gHo+8JFPhIT6JKGEEZFIRCYKUYlGdGIQk1jEJg5xiUd8EpCQRCQmCUlJRnJSkJJUpCYNaUOD05OO9GQgI5nITBayko3s5CAnuchNHvKSj/wUoCCFKEwRilKM4pSgJKUoTRnKUo7yVKBigHoqUZkqVKUa1alBTWpRmzrUpR71aUBDGtGYJjSlGc1pQUta0Zo2tKUd7elARzrRmS50DVBPN7rTg570ojd96Es/+jOAgQxiMEMYyjCGM4KRjGI0YxjLOMYzgYlMYjJTmMo0pjODmQHqmcVs5jCXecxnAQtZxGKWsJRlLGcFK1nFatawlnWsZwMb2cRmtrCVbWxnBzvZxWd8zu4A9ezhC75kL/vYzwEOcojDHOErvuYoxzjOCU5yim/4lu/4nh/4kZ/4mV/4ld/4ndOc4Q/+5GyAes5xngv8xd/8w7/8RzgXucRlrnCVa1znBje5xW3ucJd73OcBD3nEY57wlGc85wUvecXrAPW84S3veM8HPvKJkDCfJJQwIhKJyEQhKtGITgxiEovYxCEu8YhPAhKSiMQkISnJSE4KUoYFpycVqUlDWtKRngxkJBOZyUJWspGdHOQkF7nJQ17ykZ8CFKQQhSlCUYpRnBKUpBSlKUPZAPWUozwVqEglKlOFqlSjOjWoSS1qU4e61KM+DWhIIxrThKY0ozktaEkrWtOGtrSjPR3oGKCeTnSmC13pRnd60JNe9KYPfelHfwYwkEEMZghDGcZwRjCSUYxmDGMZx3gmMJFJTGYKUwPUM43pzGAms5jNHOYyj/ksYCGLWMwSlrKM5axgJatYzRrWso71bGAjm9jMFrayje3sYGeAev4HlaSoxeAVAAA=
+  </data>
+ </layer>
+ <imagelayer id="12" name="Слой изображений 1" visible="0" repeatx="1">
+  <image source="../../Загрузки/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/2 Background/Backgroundnew.png" width="1152" height="648"/>
+ </imagelayer>
+ <layer id="13" name="стены" width="70" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2TMQ7CMAxFTbJRtpaBSrCydQVuwRGA+x+CWMTSb5ogFZFQBT/pK0rqtvaPTaQoiqIoirIsTk7nhP6Z3slG1EOMnG2KZ/ddUj1wicRyvQ1NPbEQY3zMOl/KRZD6tn41lL5vQ2NPDCj85urNP29Od6/H56lnhf2QHpC7l/pDxK/YLCH8fpsp3yVwnRmPPrUU9y+lmN+1gPUdnTrQHtTBczk7UL2+xOCZGug1q7xaOEMZiJH4mglrx30DZ7hyz+1+kWxBsAeGYB/6JPvaPZmDzJcyRnqmRp7SiyRl4BUAAA==
+  </data>
+ </layer>
+ <layer id="15" name="пол" width="70" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2WvQ6CMBSFbxRd/J3UsigJg7Kpg7q4Ejbfwfd/B0to06a5hZIWqKQn+RJCSu/13PbEAoJUEUoxdBMeKviCK/iCK/iCK/iCK/iCi/syY8yHbccbcV/2jMOw7XijcI9w9eXLt4caLkUYsfQuouRQ5U3KnrHciUDkkppPH2Xtg/JkvBz13qW4L1Pp3Q5E3si581bQrcM0ZUwYXamcI59RDvVzPVJOCAmIexQj35mIGK4rPVmC8Mel5LOJzUo3rzPlgpCBfb6Y+rIA4UnbGfB7Ld9tF/8nrpQbwh2q36XmhG1NrG9eQ3em67SirBU2lj02iSB1bWoSzR5yjbb7/7sv3JMmX9KW+/riyxbwnFZJlH3q+h7DeTElq+l9DL78AA8FpwHgFQAA
+  </data>
+ </layer>
+ <objectgroup id="29" name="капсулы" visible="0">
+  <object id="289" gid="220" x="480" y="352" width="40" height="48"/>
+  <object id="291" gid="220" x="1432.5" y="448" width="40" height="48"/>
+  <object id="292" gid="220" x="601" y="352" width="40" height="48"/>
+  <object id="293" name="capsule_1" x="480" y="305" width="38.5" height="46.5"/>
+  <object id="294" name="capsule_2" x="601.5" y="304" width="38" height="48"/>
+  <object id="295" name="capsule_3" x="1433" y="400.5" width="38" height="48.5"/>
+ </objectgroup>
+ <objectgroup id="26" name="исчезающий пол" visible="0">
+  <object id="174" gid="140" x="992" y="576" width="32" height="32"/>
+  <object id="175" gid="140" x="1088" y="544" width="32" height="32"/>
+  <object id="176" gid="140" x="1184" y="512" width="32" height="32"/>
+  <object id="179" name="floor1" x="992" y="544.667" width="30.6667" height="30.6667"/>
+  <object id="180" name="floor2" x="1089.33" y="512.667" width="31.3333" height="32"/>
+  <object id="181" name="floor3" x="1185.33" y="480.667" width="30" height="31.3333"/>
+  <object id="239" gid="140" x="992" y="384" width="32" height="32"/>
+  <object id="240" gid="140" x="1088" y="384" width="32" height="32"/>
+  <object id="241" gid="140" x="1184" y="384" width="32" height="32"/>
+  <object id="242" name="floor4" x="992" y="353.333" width="31.3333" height="29.3333"/>
+  <object id="243" name="floor5" x="1089.33" y="352.667" width="32" height="32"/>
+  <object id="244" name="floor6" x="1184.67" y="353.333" width="31.3333" height="31.3333"/>
+ </objectgroup>
+ <layer id="24" name="убивающая стена" width="70" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3MwQkAIAwEwVSgRaX/niTgS0TIV2ZgXwcXAQAAAADwr9y9ttuejco4ms2PbmUBfTtYH+AVAAA=
+  </data>
+ </layer>
+ <objectgroup id="30" name="hitbox убивающей стены" visible="0">
+  <object id="304" name="kill_flooor_1" x="481" y="601" width="63" height="39"/>
+  <object id="305" name="kill_flooor_2" x="704" y="598" width="95" height="41"/>
+  <object id="306" name="kill_flooor_3" x="929" y="600" width="350" height="39"/>
+  <object id="307" name="kill_flooor_4" x="1473" y="598" width="736" height="42"/>
+ </objectgroup>
+ <objectgroup id="21" name="конвеер">
+  <object id="145" gid="124" x="224" y="512" width="32" height="32"/>
+  <object id="146" gid="125" x="320" y="512" width="32" height="32"/>
+  <object id="147" gid="125" x="288" y="512" width="32" height="32"/>
+  <object id="148" gid="125" x="256" y="512" width="32" height="32"/>
+  <object id="149" gid="125" x="352" y="512" width="32" height="32"/>
+  <object id="150" gid="125" x="384" y="512" width="32" height="32"/>
+  <object id="151" gid="125" x="416" y="512" width="32" height="32"/>
+  <object id="152" gid="126" x="448" y="512" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="17" name="коробки" visible="0">
+  <object id="63" gid="91" x="480" y="639" width="32" height="32"/>
+  <object id="64" gid="91" x="514" y="640" width="32" height="32"/>
+  <object id="65" gid="91" x="499" y="640" width="32" height="32"/>
+  <object id="66" gid="92" x="515" y="624" width="32" height="32"/>
+  <object id="67" gid="91" x="486" y="623" width="32" height="32"/>
+  <object id="68" gid="92" x="510" y="611" width="32" height="32"/>
+  <object id="69" gid="94" x="507" y="599" width="32" height="32"/>
+  <object id="70" gid="93" x="481" y="640" width="32" height="32"/>
+  <object id="71" gid="110" x="440" y="576" width="32" height="32"/>
+  <object id="72" gid="110" x="407" y="576" width="32" height="32"/>
+  <object id="73" gid="93" x="439" y="545" width="32" height="32"/>
+  <object id="74" gid="111" x="362" y="577" width="32" height="32"/>
+  <object id="75" gid="104" x="361" y="564" width="32" height="32"/>
+  <object id="76" gid="110" x="319" y="577" width="32" height="32"/>
+  <object id="77" gid="103" x="283" y="566" width="32" height="32"/>
+  <object id="86" gid="2147483760" x="159.333" y="576.333" width="32" height="32"/>
+  <object id="87" gid="105" x="170.333" y="570.667" width="32" height="32"/>
+  <object id="88" gid="113" x="175" y="576.333" width="32" height="32"/>
+  <object id="113" gid="99" x="289" y="352.333" width="32" height="32"/>
+  <object id="127" gid="85" x="179.333" y="352.333" width="32" height="32"/>
+  <object id="128" gid="84" x="162" y="352.667" width="32" height="32"/>
+  <object id="129" gid="106" x="57.3333" y="463.333" width="32" height="32"/>
+  <object id="191" gid="91" x="2176" y="384" width="32" height="32"/>
+  <object id="192" gid="92" x="2144" y="384" width="32" height="32"/>
+  <object id="193" gid="91" x="2160.5" y="384" width="32" height="32"/>
+  <object id="196" gid="94" x="2171" y="368.5" width="32" height="32"/>
+  <object id="232" gid="111" x="882" y="481.333" width="32" height="32"/>
+  <object id="233" gid="105" x="882" y="454.667" width="32" height="32"/>
+  <object id="247" gid="110" x="1760" y="384" width="32" height="32"/>
+  <object id="248" gid="110" x="1824" y="384" width="32" height="32"/>
+  <object id="249" gid="93" x="1824" y="352" width="32" height="32"/>
+  <object id="250" gid="94" x="1760" y="352" width="32" height="32"/>
+  <object id="251" gid="111" x="1696" y="384" width="32" height="32"/>
+  <object id="254" gid="113" x="1708" y="373.333" width="32" height="32"/>
+  <object id="255" gid="89" x="1824" y="288" width="32" height="32"/>
+  <object id="256" gid="90" x="1792" y="288" width="32" height="32"/>
+  <object id="257" gid="91" x="1810.67" y="267.333" width="32" height="32"/>
+  <object id="258" gid="92" x="1806.67" y="252" width="32" height="32"/>
+  <object id="259" gid="92" x="1786" y="266.667" width="32" height="32"/>
+  <object id="273" gid="84" x="1736.67" y="289.333" width="32" height="32"/>
+  <object id="274" gid="85" x="1753.33" y="289.333" width="32" height="32"/>
+  <object id="275" gid="104" x="2080" y="352" width="32" height="32"/>
+  <object id="276" gid="103" x="2016" y="352" width="32" height="32"/>
+  <object id="277" gid="105" x="2144" y="352" width="32" height="32"/>
+  <object id="278" gid="89" x="2016" y="384" width="32" height="32"/>
+  <object id="279" gid="90" x="2036" y="384.667" width="32" height="32"/>
+ </objectgroup>
+ <layer id="16" name="номера" width="70" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCkbBKBgFQwnYQmm3AXXF4AMjITzUgVgEiGWBWG6A3TKYQDIJalOgdD4SXcjA0FBAXScNe9CBxKY078VTqB8ESEkDgx1sgdJpA+qKUTAKhh5wJ0INHxDz09oho2AUDAAAAO60IurgFQAA
+  </data>
+ </layer>
+ <objectgroup id="27" name="лестница" visible="0">
+  <object id="220" gid="88" x="32" y="224" width="32" height="32"/>
+  <object id="221" gid="87" x="32" y="256" width="32" height="32"/>
+  <object id="222" gid="87" x="32" y="288" width="32" height="32"/>
+  <object id="223" gid="86" x="32" y="320" width="32" height="32"/>
+  <object id="224" gid="86" x="32" y="352" width="32" height="32"/>
+  <object id="225" gid="86" x="32" y="384" width="32" height="32"/>
+  <object id="226" gid="86" x="32" y="416" width="32" height="32"/>
+  <object id="227" gid="86" x="32" y="448" width="32" height="32"/>
+  <object id="228" gid="86" x="32" y="480" width="32" height="32"/>
+  <object id="281" name="ladder_1" x="32" y="211.333" width="30.6667" height="267.333"/>
+ </objectgroup>
+ <objectgroup id="18" name="взрывающееся" visible="0">
+  <object id="99" gid="83" x="194.667" y="576.333" width="32" height="32"/>
+  <object id="100" gid="114" x="218.333" y="576" width="32" height="32"/>
+  <object id="108" gid="114" x="260.667" y="576" width="32" height="32"/>
+  <object id="109" gid="115" x="267.667" y="576.333" width="32" height="32"/>
+  <object id="111" gid="116" x="279.333" y="576.333" width="32" height="32"/>
+  <object id="121" gid="82" x="249" y="352.333" width="32" height="32"/>
+  <object id="122" gid="82" x="231" y="352.333" width="32" height="32"/>
+  <object id="123" gid="82" x="237" y="352.667" width="32" height="32"/>
+  <object id="124" gid="83" x="239.667" y="331.333" width="32" height="32"/>
+  <object id="234" gid="114" x="807.333" y="481.333" width="32" height="32"/>
+  <object id="235" gid="115" x="813.333" y="481.333" width="32" height="32"/>
+  <object id="236" gid="116" x="826" y="481.333" width="32" height="32"/>
+  <object id="238" gid="104" x="818" y="452" width="32" height="32"/>
+  <object id="268" gid="82" x="1646.67" y="288.667" width="32" height="32"/>
+  <object id="269" gid="82" x="1664.67" y="288" width="32" height="32"/>
+  <object id="270" gid="82" x="1654.67" y="288" width="32" height="32"/>
+  <object id="271" gid="83" x="1658" y="268" width="32" height="32"/>
+  <object id="282" name="explosion_1" x="246" y="306" width="18.6667" height="24.3333"/>
+  <object id="285" name="explosion_2" x="238.667" y="330.667" width="34.6667" height="21.6667"/>
+  <object id="286" name="explosion_3" x="202.5" y="551.5" width="27.75" height="24.5"/>
+  <object id="287" name="explosion_4" x="806.5" y="460" width="42" height="21"/>
+ </objectgroup>
+ <objectgroup id="19" name="коробка с аним" visible="0">
+  <object id="101" gid="208" x="230.667" y="576.333" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="25" name="пресс" visible="0">
+  <object id="167" gid="160" x="320" y="448" width="32" height="32"/>
+  <object id="168" gid="172" x="320" y="480" width="32" height="32"/>
+  <object id="169" gid="172" x="416" y="480" width="32" height="32"/>
+  <object id="170" gid="160" x="416" y="448" width="32" height="32"/>
+ </objectgroup>
+</map>
