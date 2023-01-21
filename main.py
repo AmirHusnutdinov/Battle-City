@@ -3,6 +3,7 @@ import random
 
 import pygame
 import pygame_gui
+import pytmx
 
 pygame.init()
 pygame.display.set_caption('start')
@@ -13,6 +14,7 @@ manager = pygame_gui.UIManager((1100, 600))
 clock = pygame.time.Clock()
 running = True
 mode = 'main'
+
 
 
 class StartPage:
@@ -110,10 +112,46 @@ class Rules:
             start_page.choose_level.show()
 
 
+class TiledMap:
+    def __init__(self, filename):
+        tm = pytmx.load_pygame(filename, pixelalpha=True)
+        self.width = tm.width * tm.tilewidth
+        self.height = tm.height * tm.tileheight
+        self.tmxdata = tm
+
+    def render(self, surface, shift):
+        image = pygame.image.load('ind_zone/Backgroundnew.png')
+        screen.blit(image, (0, 0))
+        screen.blit(image, (1067, 0))
+        ti = self.tmxdata.get_tile_image_by_gid
+        for layer in self.tmxdata.visible_layers:
+            if isinstance(layer, pytmx.TiledTileLayer):
+                for x, y, gid, in layer:
+                    tile = ti(gid)
+                    x += shift
+                    if tile:
+                        surface.blit(tile, (x * self.tmxdata.tilewidth,
+                                            y * self.tmxdata.tileheight))
+
+
+class Hero:
+    def __init__(self):
+        self.sprite = pygame.image.load('hero/p1.png')
+        self.is_move = False
+        self.duraction = 'right'
+        self.move = 20
+
+    def render(self):
+        screen.blit(self.sprite, (self.move, 390))
+
+
+her = Hero()
+industrial_zone = TiledMap('./ind_zone/ind_zone.tmx')
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
 
+shift_of_map = 0
 while running:
     time_delta = clock.tick(60) / 1000
 
@@ -124,12 +162,27 @@ while running:
 
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
             running = False
+        if event.type == pygame.KEYUP:
+
+            if event.key == pygame.K_LEFT:
+                if shift_of_map < -0.1:
+                    shift_of_map += 0.1
+                    her.move -= 0.5
+            if event.key == pygame.K_RIGHT:
+                if shift_of_map > -35.5:
+                    shift_of_map -= 0.1
+                    her.move += 0.5
+                else:
+                    her.move += 1
 
         manager.process_events(event)
     manager.update(time_delta)
 
     if start_page.start_btn.check_pressed():
-        pass
+        mode = 'start'
+        start_page.rule_btn.hide()
+        start_page.choose_level.hide()
+        start_page.start_btn.hide()
 
     elif start_page.rule_btn.check_pressed():
         mode = 'rules'
@@ -143,6 +196,10 @@ while running:
         rules.render()
         if rules.back_btn.check_pressed():
             rules.press_event()
+
+    elif mode == 'start':
+        industrial_zone.render(screen, shift_of_map)
+        her.render()
 
     manager.draw_ui(screen)
     pygame.display.flip()
