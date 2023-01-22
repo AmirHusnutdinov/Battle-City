@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="70" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="31" nextobjectid="308">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="70" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="34" nextobjectid="336">
  <tileset firstgid="1" name="Tiles" tilewidth="32" tileheight="32" tilecount="81" columns="9">
   <image source="Tiles (1).png" trans="b3afbb" width="288" height="288"/>
  </tileset>
@@ -73,9 +73,37 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="220" name="1" tilewidth="40" tileheight="48" tilecount="1" columns="1">
-  <image source="1.png" width="50" height="48"/>
+ <tileset firstgid="220" name="1" tilewidth="40" tileheight="48" tilecount="84" columns="14">
+  <image source="1.png" width="576" height="324"/>
  </tileset>
+ <objectgroup id="33" name="spawn">
+  <object id="335" name="spawn" x="100" y="457" width="21" height="23"/>
+ </objectgroup>
+ <objectgroup id="32" name="wall">
+  <object id="312" name="wall2" x="-2" y="481" width="161.5" height="158"/>
+  <object id="314" name="wall3" x="160" y="578" width="317" height="60.5"/>
+  <object id="310" name="wall1" x="1.5" y="1.5" width="29" height="478"/>
+  <object id="315" name="wall4" x="129" y="353" width="190" height="61.5"/>
+  <object id="316" name="wall5" x="65.5" y="225" width="62.5" height="60"/>
+  <object id="317" name="wall6" x="318.5" y="385" width="128.5" height="29"/>
+  <object id="318" name="wall7" x="448.5" y="353.5" width="189.5" height="59"/>
+  <object id="319" name="wall8" x="483" y="417.5" width="26.5" height="59"/>
+  <object id="320" name="wall9" x="545.5" y="578" width="155" height="60.5"/>
+  <object id="321" name="wall10" x="578" y="546.5" width="124" height="28"/>
+  <object id="322" name="wall11" x="610" y="514" width="92.5" height="30"/>
+  <object id="323" name="wall12" x="640.5" y="482.5" width="63" height="30"/>
+  <object id="324" name="wall13" x="670.667" y="353.333" width="35.3333" height="13.3333"/>
+  <object id="325" name="wall14" x="802.667" y="355.333" width="124" height="25.3333"/>
+  <object id="326" name="wall15" x="803.333" y="483.333" width="123.333" height="154.667"/>
+  <object id="327" name="wall16" x="1280.67" y="450.667" width="190.667" height="186"/>
+  <object id="328" name="wall17" x="1633.33" y="387.333" width="222" height="58"/>
+  <object id="329" name="wall18" x="1633.33" y="288.667" width="222" height="28.6667"/>
+  <object id="330" name="wall19" x="1984.67" y="384.667" width="222.667" height="94.6667"/>
+  <object id="331" name="wall20" x="1983.33" y="223.333" width="223.333" height="33.3333"/>
+  <object id="332" name="wall21" x="2209.33" y="2.66667" width="28.6667" height="637.333"/>
+  <object id="333" name="wall22" x="1855.33" y="386.667" width="33.3333" height="14"/>
+  <object id="334" name="wall23" x="1536.67" y="416" width="32" height="19.3333"/>
+ </objectgroup>
  <layer id="11" name="background" width="70" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -101,7 +129,7 @@
 </data>
  </layer>
  <imagelayer id="12" name="Слой изображений 1" repeatx="1">
-  <image source="Backgroundnew.png" width="1152" height="648"/>
+  <image source="Background_new.png" width="1067" height="600"/>
  </imagelayer>
  <layer id="13" name="стены" width="70" height="20">
   <data encoding="csv">
