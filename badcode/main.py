@@ -29,7 +29,7 @@ class StartPage:
         self.coordinates = []
         self.pict = None
         self.graf = None
-        self.backgrounds = (os.listdir(f'{os.path.abspath("BackGrounds")}'))
+        self.backgrounds = (os.listdir(f'{os.path.abspath("../BackGrounds")}'))
 
         for i in self.backgrounds:
             self.backgrounds_lst.append(pygame.image.load(f'BackGrounds/{i}'))
@@ -76,7 +76,7 @@ class StartPage:
         pygame.draw.rect(surf, 'grey', (298, 273, 155, 55), 10, 10)
         rules.back_btn.hide()
 
-        self.graffiti = (os.listdir(f'{os.path.abspath("graffiti")}'))
+        self.graffiti = (os.listdir(f'{os.path.abspath("../graffiti")}'))
         self.coordinates = [(300, 500), (700, 500), (150, 400),
                             (500, 450), (900, 100), (300, 150),
                             (960, 300), (600, 100), (980, 500),
@@ -119,16 +119,16 @@ class Rules:
 
     def render(self, surf: Surface) -> None:
         self.back_btn.show()
-        
+
         start_page.start_btn.hide()
         start_page.rule_btn.hide()
         start_page.choose_level.hide()
-        
-        pict2 = pygame.image.load('rules.png')
+
+        pict2 = pygame.image.load('../rules.png')
         graf2 = pict2.get_rect(bottomright=(1100, 600))
-        surf.blit(pict2, graf2)           
-            
-            
+        surf.blit(pict2, graf2)
+
+
 class TiledMap:
     def __init__(self, filename: str) -> None:
         tm = pytmx.load_pygame(filename, pixelalpha=True)
@@ -146,20 +146,24 @@ class TiledMap:
         self.cansel = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((555, 300, 140, 40)),
                                                    text='Отмена',
                                                    manager=manager)
-        self.pause = pygame.image.load('pause.png')
+        self.pause = pygame.image.load('../pause.png')
 
         self.pause_btn.hide()
         self.back_to_menu.hide()
         self.cansel.hide()
 
+        self.all_sprites = pygame.sprite.Group()
+        boxes = pygame.sprite.Group()
+        self.hero = None
+
     def render(self, surf: Surface, shift: float) -> None:
-        image = pygame.image.load('ind_zone/Background_new.png')
-        
+        image = pygame.image.load('../ind_zone/Background_new.png')
+
         surf.blit(image, (0, 0))
         surf.blit(image, (1067, 0))
-        
+
         ti = self.tmx_data.get_tile_image_by_gid
-        
+
         for layer in self.tmx_data.visible_layers:
             if isinstance(layer, pytmx.TiledTileLayer):
                 for x, y, gid, in layer:
@@ -168,13 +172,13 @@ class TiledMap:
                     if tile:
                         surf.blit(tile, (x * self.tmx_data.tilewidth,
                                          y * self.tmx_data.tileheight))
-                        
+
         self.back_to_menu.hide()
         self.cansel.hide()
         start_page.rule_btn.hide()
         start_page.choose_level.hide()
         start_page.start_btn.hide()
-        
+
         industrial_zone.pause_btn.show()
         pygame.draw.rect(surf, 'black', (978, 18, 104, 54), 4, 10)
 
@@ -186,23 +190,70 @@ class TiledMap:
         surf.blit(self.pause, (400, 200))
 
         pygame.draw.rect(surf, 'black', (397, 197, 307, 206), 4, 10)
-        pygame.draw.rect(surf, 'black', (403, 299, 144, 43), 10,  4)
+        pygame.draw.rect(surf, 'black', (403, 299, 144, 43), 10, 4)
         pygame.draw.rect(surf, 'black', (553, 299, 144, 43), 10, 4)
 
 
-class Hero:
-    def __init__(self) -> None:
-        self.sprite = pygame.image.load('Hero/p1.png')
-        self.is_move = False
-        self.direction = 'right'
-        self.move = 20
+class Sprite(pygame.sprite.Sprite):
+    sprite = None
+
+    def __init__(self, x: int, y: int):
+        super().__init__()
+        self.image = self.__class__.sprite
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        if self.rect.width < 32:
+            self.rect.x += (32 - self.rect.width) // 2
+        if self.rect.height < 32:
+            self.rect.y += (32 - self.rect.height) // 2
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def on_event(self, event):
+        pass
+
+
+class Hero(Sprite):
+    sprite = pygame.image.load('../hero/p1.png')
+
+    def set_boxes(self, boxes: pygame.sprite.Group):
+        self.boxes = boxes
+
+    def move(self, x, y):
+        old_x = self.rect.x
+        old_y = self.rect.y
+        if x < 0 or y < 0:
+            return
+        if x + self.rect.width > 1100 or old_y + self.rect.height > 600:
+            return
+        self.rect.x = x
+        self.rect.y = y
+        for box in self.boxes.sprites():
+            if pygame.sprite.collide_mask(self, box):
+                self.rect.x = old_x
+                self.rect.y = old_y
+                return
+
+    def on_event(self, event):
+        if event.type != pygame.KEYDOWN:
+            return
+        step = 10
+        if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
+            if event.key == pygame.K_LEFT:
+                self.move(self.rect.x - step, self.rect.y)
+            if event.key == pygame.K_RIGHT:
+                self.move(self.rect.x + step, self.rect.y)
+            if event.key == pygame.K_UP:
+                self.move(self.rect.x, self.rect.y - step)
+            if event.key == pygame.K_DOWN:
+                self.move(self.rect.x, self.rect.y + step)
 
     def render(self, surf: Surface) -> None:
-        surf.blit(self.sprite, (self.move, 390))
+        surf.blit(self.sprite, (self.rect.x, self.rect.y))
 
 
-hero = Hero()
-industrial_zone = TiledMap('ind_zone/ind_zone.tmx')
+hero = Hero(20, 390)
+industrial_zone = TiledMap('../ind_zone/ind_zone.tmx')
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
@@ -217,19 +268,20 @@ while running:
 
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
             running = False
+        hero.on_event(event)
 
-        if event.type == pygame.KEYUP:
-
-            if event.key == pygame.K_LEFT:
-                if shift_of_map < -0.1:
-                    shift_of_map += 0.1
-                    hero.move -= 0.5
-            if event.key == pygame.K_RIGHT:
-                if shift_of_map > -35.5:
-                    shift_of_map -= 0.1
-                    hero.move += 0.5
-                else:
-                    hero.move += 1
+        # if event.type == pygame.KEYUP:
+        #
+        #     if event.key == pygame.K_LEFT:
+        #         if shift_of_map < -0.1:
+        #             shift_of_map += 0.1
+        #             hero.move -= 0.5
+        #     if event.key == pygame.K_RIGHT:
+        #         if shift_of_map > -35.5:
+        #             shift_of_map -= 0.1
+        #             hero.move += 0.5
+        #         else:
+        #             hero.move += 1
         manager.process_events(event)
     manager.update(time_delta)
 
