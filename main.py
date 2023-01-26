@@ -18,6 +18,12 @@ manager = pygame_gui.UIManager((1100, 600))
 clock = pygame.time.Clock()
 running = True
 mode = 'main'
+pygame.mixer.music.load('m.mp3')
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.1)
+lose = pygame.mixer.Sound('lose.mp3')
+lose.set_volume(0.2)
+btn_sound = pygame.mixer.Sound('btn.mp3')
 
 
 class StartPage:
@@ -159,7 +165,7 @@ class TiledMap:
 
     def render(self, surf: Surface, shift: float) -> None:
         image = pygame.image.load('ind_zone/Background_new.png')
-        
+
         surf.blit(image, (0, 0))
         surf.blit(image, (1067, 0))
         
@@ -184,10 +190,8 @@ class TiledMap:
         pygame.draw.rect(surf, 'black', (978, 18, 104, 54), 4, 10)
 
     def open_pause(self, surf: Surface) -> None:
-
         self.back_to_menu.show()
         self.cansel.show()
-
         surf.blit(self.pause, (400, 200))
 
         pygame.draw.rect(surf, 'black', (397, 197, 307, 206), 4, 10)
@@ -273,27 +277,35 @@ while running:
     if start_page.start_btn.check_pressed() or\
             industrial_zone.cansel.check_pressed() or game_over.restart.check_pressed():
         mode = 'start'
+        pygame.mixer.music.unpause()
         game_over.x = 0
         game_over.y = -600
         game_over.y1 = game_over.y2 = 700
         game_over.restart.hide()
         game_over.menu.hide()
+        btn_sound.play()
 
     elif start_page.rule_btn.check_pressed():
         mode = 'rules'
+        btn_sound.play()
 
     elif industrial_zone.pause_btn.check_pressed():
+        pygame.mixer.music.pause()
         mode = 'pause'
+        btn_sound.play()
 
     elif industrial_zone.back_to_menu.check_pressed() or\
             rules.back_btn.check_pressed() or game_over.menu.check_pressed():
         mode = 'main'
+        pygame.mixer.music.unpause()
         game_over.restart.hide()
         game_over.menu.hide()
+        btn_sound.play()
 
     elif industrial_zone.death.check_pressed():
         mode = 'death'
-
+        lose.play()
+        btn_sound.play()
     start_page.render_back(screen)
 
     if mode == 'main':
@@ -306,7 +318,6 @@ while running:
         industrial_zone.render(screen, shift_of_map)
         hero.render(screen)
 
-
     elif mode == 'pause':
         industrial_zone.render(screen, shift_of_map)
         hero.render(screen)
@@ -316,6 +327,8 @@ while running:
         industrial_zone.render(screen, shift_of_map)
         hero.render(screen)
         game_over.render(screen)
+
+
 
     manager.draw_ui(screen)
     clock.tick(FPS)
