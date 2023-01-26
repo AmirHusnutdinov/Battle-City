@@ -146,6 +146,11 @@ class TiledMap:
         self.cansel = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((555, 300, 140, 40)),
                                                    text='Отмена',
                                                    manager=manager)
+        # Удали эту кнопку как появится смерть
+        self.death = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 100, 140, 40)),
+                                                   text='Смэрть',
+                                                   manager=manager)
+
         self.pause = pygame.image.load('pause.png')
 
         self.pause_btn.hide()
@@ -201,6 +206,38 @@ class Hero:
         surf.blit(self.sprite, (self.move, 390))
 
 
+class GameOver:
+    def __init__(self):
+        self.image = pygame.image.load('game_over.png')
+        self.menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((329, 328, 150, 60)),
+                                                   text='Главное меню',
+                                                   manager=manager)
+        self.restart = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((610, 328, 150, 60)),
+                                                   text='Начать с начала',
+                                                   manager=manager)
+        self.menu.hide()
+        self.restart.hide()
+        self.x = 0
+        self.y = -600
+        self.y1 = self.y2 = 700
+
+    def render(self, surf: Surface):
+        industrial_zone.pause_btn.hide()
+        surf.blit(self.image, (self.x, self.y))
+        color = (255, random.randrange(1, 256), random.randrange(1, 256))
+        pygame.draw.rect(surf, color, (327, self.y1, 155, 66), 10, 10)
+        pygame.draw.rect(surf, color, (608, self.y2, 155, 66), 10, 10)
+        if self.y < 0:
+            self.y += FPS
+        if self.y1 > 339:
+            self.y1 -= FPS // 2
+            self.menu.show()
+        if self.y2 > 339:
+            self.y2 -= FPS // 2
+            self.restart.show()
+
+
+game_over = GameOver()
 hero = Hero()
 industrial_zone = TiledMap('ind_zone/ind_zone.tmx')
 rules = Rules()
@@ -233,8 +270,14 @@ while running:
         manager.process_events(event)
     manager.update(time_delta)
 
-    if start_page.start_btn.check_pressed():
+    if start_page.start_btn.check_pressed() or\
+            industrial_zone.cansel.check_pressed() or game_over.restart.check_pressed():
         mode = 'start'
+        game_over.x = 0
+        game_over.y = -600
+        game_over.y1 = game_over.y2 = 700
+        game_over.restart.hide()
+        game_over.menu.hide()
 
     elif start_page.rule_btn.check_pressed():
         mode = 'rules'
@@ -242,14 +285,14 @@ while running:
     elif industrial_zone.pause_btn.check_pressed():
         mode = 'pause'
 
-    elif industrial_zone.cansel.check_pressed():
-        mode = 'start'
-
-    elif industrial_zone.back_to_menu.check_pressed():
+    elif industrial_zone.back_to_menu.check_pressed() or\
+            rules.back_btn.check_pressed() or game_over.menu.check_pressed():
         mode = 'main'
+        game_over.restart.hide()
+        game_over.menu.hide()
 
-    elif rules.back_btn.check_pressed():
-        mode = 'main'
+    elif industrial_zone.death.check_pressed():
+        mode = 'death'
 
     start_page.render_back(screen)
 
@@ -263,10 +306,16 @@ while running:
         industrial_zone.render(screen, shift_of_map)
         hero.render(screen)
 
+
     elif mode == 'pause':
         industrial_zone.render(screen, shift_of_map)
         hero.render(screen)
         industrial_zone.open_pause(screen)
+
+    elif mode == 'death':
+        industrial_zone.render(screen, shift_of_map)
+        hero.render(screen)
+        game_over.render(screen)
 
     manager.draw_ui(screen)
     clock.tick(FPS)
