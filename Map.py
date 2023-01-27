@@ -7,7 +7,7 @@ class TiledMap:
 
         self.width = tm.width * tm.tilewidth
         self.height = tm.height * tm.tileheight
-        self.tmx_data = tm
+        self.tmxdata = tm
 
         self.pause_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((980, 20, 100, 50)),
                                                       text='Pause',
@@ -33,14 +33,23 @@ class TiledMap:
         self.cansel.hide()
 
     def render(self, surf: Surface) -> None:
-        image = pygame.image.load('ind_zone/Background_new.png')
-
-        surf.blit(image, (0, 0))
-        surf.blit(image, (1067, 0))
+        # image = pygame.image.load('ind_zone/Background_new.png')
+        #
+        # surf.blit(image, (0, 0))
+        # surf.blit(image, (1067, 0))
 
         self.back_to_menu.hide()
         self.cansel.hide()
         pygame.draw.rect(surf, 'black', (978, 18, 104, 54), 4, 10)
+
+        ti = self.tmxdata.get_tile_image_by_gid
+        for layer in self.tmxdata.visible_layers:
+            if isinstance(layer, pytmx.TiledTileLayer):
+                for x, y, gid, in layer:
+                    tile = ti(gid)
+                    if tile:
+                        surf.blit(tile, (x * self.tmxdata.tilewidth,
+                                            y * self.tmxdata.tileheight))
 
     def open_pause(self, surf: Surface) -> None:
         self.back_to_menu.show()
