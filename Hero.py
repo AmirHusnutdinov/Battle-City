@@ -3,7 +3,7 @@ from settings import *
 
 class Hero:
     def __init__(self) -> None:
-        self.sprite = pygame.image.load('Hero/p1.png')
+        self.sprite = pygame.image.load('hero/p1.png')
         self.is_move = False
         self.direction = 'right'
         self.move = 20
