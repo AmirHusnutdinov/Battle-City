@@ -13,3 +13,4 @@ class ConfirmationDialog:
             action_long_desc='Вы уверены, что хотите выйти ?',
             action_short_name='YES',
             blocking=True)
+        btn_sound.play()

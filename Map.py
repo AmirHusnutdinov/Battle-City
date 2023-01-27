@@ -18,7 +18,7 @@ class TiledMap:
         self.cansel = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((555, 300, 140, 40)),
                                                    text='Отмена',
                                                    manager=manager)
-        # Удали эти кнопку как появится смерть
+        # Удали эти кнопкb как появится смерть
         self.death = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 0, 40, 40)),
                                                   text='Смэрть',
                                                   manager=manager)
@@ -33,11 +33,6 @@ class TiledMap:
         self.cansel.hide()
 
     def render(self, surf: Surface) -> None:
-        # image = pygame.image.load('ind_zone/Background_new.png')
-        #
-        # surf.blit(image, (0, 0))
-        # surf.blit(image, (1067, 0))
-
         self.back_to_menu.hide()
         self.cansel.hide()
         pygame.draw.rect(surf, 'black', (978, 18, 104, 54), 4, 10)
@@ -49,7 +44,7 @@ class TiledMap:
                     tile = ti(gid)
                     if tile:
                         surf.blit(tile, (x * self.tmxdata.tilewidth,
-                                            y * self.tmxdata.tileheight))
+                                         y * self.tmxdata.tileheight))
 
     def open_pause(self, surf: Surface) -> None:
         self.back_to_menu.show()

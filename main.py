@@ -11,12 +11,17 @@ mode = 'main'
 running = True
 
 win_or_lose = WinOrLose(screen, mode)
-hero = Hero()
+hero = Hero(200, 200)
 industrial_zone = TiledMap('ind_zone/ind_zone.tmx')
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
-
+mass = []
+heroes = (os.listdir(f'{os.path.abspath("hero")}'))
+for i in range(len(heroes)):
+    pict = pygame.image.load(f'hero/{heroes[i]}')
+    mass.append(pict)
+count = 0
 while running:
     time_delta = clock.tick(FPS) / 1000
 
@@ -26,14 +31,9 @@ while running:
             confirmation_dialog.open_confirmation_dialog()
 
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
+            btn_sound.play()
             running = False
-
-        if event.type == pygame.KEYUP:
-
-            if event.key == pygame.K_LEFT:
-                print('left')
-            if event.key == pygame.K_RIGHT:
-                print('right')
+        hero.on_event(event)
 
         manager.process_events(event)
     manager.update(time_delta)
@@ -107,19 +107,25 @@ while running:
 
     elif mode == 'start':
         industrial_zone.render(screen)
-        hero.render(screen)
+        hero.all_sprites.draw(screen)
+        if count < 3:
+            count += 1
+        else:
+            count = 0
+        screen.blit(mass[count], (200, 200))
+        #hero.render(screen)
+
 
     elif mode == 'pause':
         industrial_zone.render(screen)
-        hero.render(screen)
+        #hero.render(screen)
         industrial_zone.open_pause(screen)
 
     elif mode == 'death' or mode == 'win':
         industrial_zone.render(screen)
         industrial_zone.pause_btn.hide()
-        hero.render(screen)
+        #hero.render(screen)
         win_or_lose.render(mode)
-
     manager.draw_ui(screen)
     clock.tick(FPS)
     pygame.display.flip()

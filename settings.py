@@ -13,7 +13,7 @@ shift_of_map = 0
 
 pygame.init()
 pygame.display.set_caption('Great way')
-size = (1100, 600)
+size = WIDTH, HEIGHT = (1100, 590)
 screen = pygame.display.set_mode(size)
 
 manager = pygame_gui.UIManager((1100, 600))
