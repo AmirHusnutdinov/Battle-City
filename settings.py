@@ -14,7 +14,7 @@ shift_of_map = 0
 
 pygame.init()
 pygame.display.set_caption('Great way')
-size = WIDTH, HEIGHT = (3000, 590)
+size = WIDTH, HEIGHT = (1100, 590)
 screen = pygame.display.set_mode(size)
 
 manager = pygame_gui.UIManager((1100, 600))
@@ -45,7 +45,7 @@ class Sprite(pygame.sprite.Sprite):
 
     def __init__(self, x: int, y: int, sprite=None):
         super().__init__()
-        if sprite != None:
+        if sprite is not None:
             self.image = load_image(sprite)
         else:
             self.image = self.__class__.sprite

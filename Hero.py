@@ -1,19 +1,8 @@
 from settings import *
 
 
-class Sprite(pygame.sprite.Sprite):
-    sprite = None
-
-    def __init__(self, x: int, y: int):
-        super().__init__()
-        self.image = self.__class__.sprite
-        self.rect = self.image.get_rect()
-        self.x = x
-        self.y = y
-
-
 class Hero(Sprite):
-    sprite = pygame.image.load('hero/i1.png')
+    sprite = pygame.image.load('hero/hero_stay/i1.png')
     
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y)
@@ -21,7 +10,7 @@ class Hero(Sprite):
         self.is_move = False
         self.direction = None
         self.sprite = pygame.sprite.Sprite()
-        self.sprite.image = pygame.image.load("hero/i1.png")
+        self.sprite.image = pygame.image.load("hero/hero_stay/i1.png")
         self.sprite.rect = self.sprite.image.get_rect()
         self.sprite.rect.x = 55
         self.sprite.rect.y = 190
@@ -30,7 +19,6 @@ class Hero(Sprite):
         self.boxes = boxes
 
     def move(self, x, y):
-        print(123)
         old_x = self.rect.x
         old_y = self.rect.y
         if x < 0 or y < 0:

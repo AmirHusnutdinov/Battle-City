@@ -1,17 +1,14 @@
-from Box2D import b2World
-
 from settings import *
 from StartPage import StartPage
 from confirmation_dialog import ConfirmationDialog
 from rules import Rules
-from Map import TiledMap
+from Map import TiledMap, AnimatedThings
 from Hero import Hero
 from Win_or__Lose import WinOrLose
 
 
 mode = 'main'
 running = True
-world = b2World(gravity=(0, -10))
 win_or_lose = WinOrLose(screen, mode)
 hero = Hero(200, 200)
 with open('ind_zone/floor.txt', mode='r') as file:
@@ -21,56 +18,54 @@ rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
 mass = []
-heroes = (os.listdir(f'{os.path.abspath("hero")}'))
+heroes = (os.listdir(f'{os.path.abspath("hero/hero_stay")}'))
 for i in range(len(heroes)):
-    pict = pygame.image.load(f'hero/{heroes[i]}')
+    pict = pygame.image.load(f'hero/hero_stay/{heroes[i]}')
     mass.append(pict)
 count = 0
 
 mass2 = []
-heroes2 = (os.listdir(f'{os.path.abspath("hero_ran")}'))
+heroes2 = (os.listdir(f'{os.path.abspath("hero/hero_ran")}'))
 for i in range(len(heroes2)):
-    pict2 = pygame.image.load(f'hero_ran/{heroes2[i]}')
+    pict2 = pygame.image.load(f'hero/hero_ran/{heroes2[i]}')
     mass2.append(pict2)
 count2 = 0
 
 mass3 = []
-heroes3 = (os.listdir(f'{os.path.abspath("hero_jump")}'))
+heroes3 = (os.listdir(f'{os.path.abspath("hero/hero_jump")}'))
 for i in range(len(heroes3)):
-    pict3 = pygame.image.load(f'hero_jump/{heroes3[i]}')
-    pict3.set_colorkey('white')
+    pict3 = pygame.image.load(f'hero/hero_jump/{heroes3[i]}')
     mass3.append(pict3)
 count3 = 0
 
 mass4 = []
-heroes4 = (os.listdir(f'{os.path.abspath("hero_attack")}'))
+heroes4 = (os.listdir(f'{os.path.abspath("hero/hero_attack")}'))
 for i in range(len(heroes4)):
-    pict4 = pygame.image.load(f'hero_attack/{heroes4[i]}')
+    pict4 = pygame.image.load(f'hero/hero_attack/{heroes4[i]}')
     mass4.append(pict4)
 count4 = 0
 
 mass5 = []
-heroes5 = (os.listdir(f'{os.path.abspath("hero_death")}'))
+heroes5 = (os.listdir(f'{os.path.abspath("hero/hero_death")}'))
 for i in range(len(heroes5)):
-    pict5 = pygame.image.load(f'hero_death/{heroes5[i]}')
+    pict5 = pygame.image.load(f'hero/hero_death/{heroes5[i]}')
     mass5.append(pict5)
 count5 = 0
 
 mass6 = []
-heroes6 = (os.listdir(f'{os.path.abspath("hero_climb")}'))
+heroes6 = (os.listdir(f'{os.path.abspath("hero/hero_climb")}'))
 for i in range(len(heroes6)):
-    pict6 = pygame.image.load(f'hero_climb/{heroes6[i]}')
+    pict6 = pygame.image.load(f'hero/hero_climb/{heroes6[i]}')
     mass6.append(pict6)
 count6 = 0
 
 mass7 = []
-heroes7 = (os.listdir(f'{os.path.abspath("hero_run_attack")}'))
+heroes7 = (os.listdir(f'{os.path.abspath("hero/hero_run_attack")}'))
 for i in range(len(heroes7)):
-    pict7 = pygame.image.load(f'hero_run_attack/{heroes7[i]}')
+    pict7 = pygame.image.load(f'hero/hero_run_attack/{heroes7[i]}')
     mass7.append(pict7)
 count7 = 0
-
-
+a = AnimatedThings(200, 100, 4)
 while running:
     time_delta = clock.tick(FPS) / 1000
 
@@ -86,7 +81,6 @@ while running:
 
         manager.process_events(event)
     manager.update(time_delta)
-
 
     if start_page.start_btn.check_pressed() or \
             industrial_zone.cansel.check_pressed() or win_or_lose.restart.check_pressed():
@@ -192,6 +186,8 @@ while running:
         screen.blit(mass5[count5], (600, 200))
         screen.blit(mass6[count6], (700, 200))
         screen.blit(mass7[count7], (800, 200))
+        a.render()
+
         #hero.render(screen)
 
     elif mode == 'pause':
@@ -202,7 +198,7 @@ while running:
     elif mode == 'death' or mode == 'win':
         industrial_zone.render(screen)
         industrial_zone.pause_btn.hide()
-        hero.render(screen)
+        #hero.render(screen)
         win_or_lose.render(mode)
     manager.draw_ui(screen)
     clock.tick(FPS)

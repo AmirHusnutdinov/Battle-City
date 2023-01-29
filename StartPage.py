@@ -18,7 +18,7 @@ class StartPage:
         self.image = self.backgrounds_lst[random.randrange(0, len(self.backgrounds_lst))]
 
         self.choose_level = pygame_gui.elements.ui_drop_down_menu.UIDropDownMenu(
-            options_list=['Industrial Zone', 'Green Zone'],
+            options_list=['Industrial Zone', 'Coming soon...'],
             starting_option='Industrial Zone',
             relative_rect=pygame.Rect(300, 275, 150, 50),
             manager=manager)
