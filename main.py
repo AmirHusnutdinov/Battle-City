@@ -185,7 +185,6 @@ while running:
         else:
             count5 = 0
 
-
         screen.blit(mass[count], (200, 200))
         screen.blit(mass2[count2], (300, 200))
         screen.blit(mass3[count3], (400, 200))
@@ -206,7 +205,7 @@ while running:
         hero.render(screen)
         win_or_lose.render(mode)
     manager.draw_ui(screen)
-    clock.tick(20)
+    clock.tick(FPS)
     pygame.display.flip()
 
 pygame.quit()
