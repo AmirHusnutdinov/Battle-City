@@ -43,7 +43,7 @@ def load_image(name, colorkey=None):
 class Sprite(pygame.sprite.Sprite):
     sprite = None
 
-    def __init__(self, x: int, y: int, sprite=None):
+    def __init__(self, x: int, y: int, sprite=None) -> None:
         super().__init__()
         if sprite is not None:
             self.image = load_image(sprite)

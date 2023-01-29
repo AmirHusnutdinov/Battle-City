@@ -15,10 +15,10 @@ class Hero(Sprite):
         self.sprite.rect.x = 55
         self.sprite.rect.y = 190
 
-    def set_boxes(self, boxes: pygame.sprite.Group):
+    def set_boxes(self, boxes: pygame.sprite.Group) -> None:
         self.boxes = boxes
 
-    def move(self, x, y):
+    def move(self, x: int, y: int) -> None:
         old_x = self.rect.x
         old_y = self.rect.y
         if x < 0 or y < 0:
@@ -44,7 +44,7 @@ class Hero(Sprite):
         if self.direction == pygame.K_RIGHT:
             self.move(self.rect.x + step, self.rect.y)
 
-    def on_event(self, event):
+    def on_event(self, event: pygame.event) -> None:
         if event.type == pygame.KEYUP:
             self.is_move = False
             self.direction = False

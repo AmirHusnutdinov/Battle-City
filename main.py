@@ -66,6 +66,7 @@ for i in range(len(heroes7)):
     mass7.append(pict7)
 count7 = 0
 a = AnimatedThings(200, 100, 4)
+
 while running:
     time_delta = clock.tick(FPS) / 1000
 

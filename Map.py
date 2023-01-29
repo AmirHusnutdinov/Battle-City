@@ -82,7 +82,7 @@ class TiledMap:
         self.cansel.hide()
         pygame.draw.rect(surf, 'black', (978, 18, 104, 54), 4, 10)
 
-    def update(self):
+    def update(self) -> None:
         self.boxes.draw(screen)
 
     def open_pause(self, surf: Surface) -> None:
@@ -121,7 +121,7 @@ class AnimatedThings:
         for i in range(len(self.items)):
             self.things.append(pygame.image.load(f'ind_zone/animated_things/{self.name_of_folder}/{self.items[i]}'))
 
-    def render(self):
+    def render(self) -> None:
         screen.blit(self.things[self.count], (self.x, self.y))
         if int(self.count) < int(self.count_of_picture):
             self.count += 1
