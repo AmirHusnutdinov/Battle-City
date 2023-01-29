@@ -1,3 +1,5 @@
+from Box2D import b2World
+
 from settings import *
 from StartPage import StartPage
 from confirmation_dialog import ConfirmationDialog
@@ -9,10 +11,12 @@ from Win_or__Lose import WinOrLose
 
 mode = 'main'
 running = True
-
+world = b2World(gravity=(0, -10))
 win_or_lose = WinOrLose(screen, mode)
 hero = Hero(200, 200)
-industrial_zone = TiledMap('ind_zone/ind_zone.tmx')
+with open('ind_zone/floor.txt', mode='r') as file:
+    level_map = [line.strip() for line in file]
+industrial_zone = TiledMap(level_map)
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
@@ -83,6 +87,7 @@ while running:
         manager.process_events(event)
     manager.update(time_delta)
 
+
     if start_page.start_btn.check_pressed() or \
             industrial_zone.cansel.check_pressed() or win_or_lose.restart.check_pressed():
         mode = 'start'
@@ -152,8 +157,8 @@ while running:
 
     elif mode == 'start':
         industrial_zone.render(screen)
-        hero.all_sprites.draw(screen)
-
+        industrial_zone.update()
+        # hero.all_sprites.draw(screen
         if count < 3 or count3 < 3:
             count += 1
             count3 += 1
@@ -198,7 +203,7 @@ while running:
     elif mode == 'death' or mode == 'win':
         industrial_zone.render(screen)
         industrial_zone.pause_btn.hide()
-        #hero.render(screen)
+        hero.render(screen)
         win_or_lose.render(mode)
     manager.draw_ui(screen)
     clock.tick(20)

@@ -17,13 +17,12 @@ class Hero(Sprite):
     
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y)
+        self.all_sprites = pygame.sprite.Group()
         self.is_move = False
         self.direction = None
-        self.all_sprites = pygame.sprite.Group()
         self.sprite = pygame.sprite.Sprite()
         self.sprite.image = pygame.image.load("hero/1-PhotoRoom.png-PhotoRoom.png")
         self.sprite.rect = self.sprite.image.get_rect()
-        self.all_sprites.add(self.sprite)
         self.sprite.rect.x = 55
         self.sprite.rect.y = 190
 
