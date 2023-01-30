@@ -66,7 +66,6 @@ class StartPage:
             self.pict = pygame.image.load(f'graffiti/{self.graffiti[i]}')
             self.graf = self.pict.get_rect(bottomright=(self.coordinates[i]))
             surf.blit(self.pict, self.graf)
-
         self.start_btn.show()
         self.rule_btn.show()
         self.choose_level.show()

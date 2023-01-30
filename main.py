@@ -80,18 +80,18 @@ while running:
         rules.back_btn.hide()
         btn_sound.play()
 
-    elif industrial_zone.death.check_pressed():
-        mode = 'death'
-        pygame.mixer.music.pause()
-        lose.play()
-        btn_sound.play()
+    # elif industrial_zone.death.check_pressed():
+    #     mode = 'death'
+    #     pygame.mixer.music.pause()
+    #     lose.play()
+    #     btn_sound.play()
 
-    elif industrial_zone.win.check_pressed():
-        pygame.mixer.music.pause()
-        mode = 'win'
-        industrial_zone.pause_btn.hide()
-        win.play()
-        btn_sound.play()
+    # elif industrial_zone.win.check_pressed():
+    #     pygame.mixer.music.pause()
+    #     mode = 'win'
+    #     industrial_zone.pause_btn.hide()
+    #     win.play()
+    #     btn_sound.play()
 
     start_page.render_back(screen)
 

@@ -68,7 +68,7 @@ dict_walls = {
 
 dict_decor = {
     'd': 'Locker1',
-    'a': 'Fire-extinguisher2',
+    'a': 'Fire-extinguisher1',
     'f': 'Locker4',
     'z': 'Mop',
     'x': 'Bucket',

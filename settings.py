@@ -22,13 +22,13 @@ clock = pygame.time.Clock()
 pygame.mixer.music.load('./music/m.mp3')
 pygame.mixer.music.play(-1)
 
-pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.set_volume(0.01)
 lose = pygame.mixer.Sound('music/lose.mp3')
-lose.set_volume(0.2)
+lose.set_volume(0.02)
 
 btn_sound = pygame.mixer.Sound('music/btn.mp3')
 win = pygame.mixer.Sound('music/win.mp3')
-win.set_volume(0.3)
+win.set_volume(0.03)
 
 level_map = []
 with open('ind_zone/floor.txt', mode='r') as file:

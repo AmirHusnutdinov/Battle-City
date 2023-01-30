@@ -1,6 +1,7 @@
 from settings import *
 from Map import TiledMap
 
+
 class Hero(Sprite):
     sprite = pygame.image.load('hero/hero_stay/i1.png')
 
