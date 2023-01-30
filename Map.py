@@ -1,4 +1,4 @@
-from Walls import Walls
+from Sprites import Walls
 from settings import *
 
 dict_floor = {
@@ -39,6 +39,49 @@ dict_floor = {
 
 }
 
+dict_walls = {
+    'y': '03',
+    'u': '11',
+    'i': '26',
+    'o': '12',
+    'p': '02',
+    'g': '21',
+    'h': '46',
+    '&': '45',
+    '^': '54',
+    '~': '63',
+    '/': '61',
+    '+': '70',
+    'l': 'Pointer1',
+    '[': 'Fence1',
+    ']': 'Fence2',
+    '=': 'Fence3',
+    'й': '10',
+    'ц': '01',
+    'у': '19',
+    'г': '39',
+    'я': '29',
+    'ч': '20',
+    'ф': '30'
+}
+
+dict_decor = {
+    'd': 'Locker1',
+    'a': 'Fire-extinguisher2',
+    'f': 'Locker4',
+    'z': 'Mop',
+    'x': 'Bucket',
+    'c': 'Board3',
+    'v': 'Box4',
+    'b': 'Box3',
+    'n': 'Box5',
+    'm': 'Bench',
+    '}': 'Box1',
+    '{': 'Box2',
+    '-': 'Barrel4',
+    '_': 'Barrel3'
+}
+
 
 class TiledMap:
 
@@ -66,27 +109,50 @@ class TiledMap:
         self.pause_btn.hide()
         self.back_to_menu.hide()
         self.cansel.hide()
-        self.all_sprites = pygame.sprite.Group()
-        self.data = filename
+        self.floor_layer = filename[0]
+        self.wall_layer = filename[1]
+        self.decor_layer = filename[2]
+        self.cells = pygame.sprite.Group()
+        self.decor_cells = pygame.sprite.Group()
         self.boxes = pygame.sprite.Group()
 
     def render(self, surf: Surface) -> None:
-        rows = len(self.data)
+        image = pygame.image.load('ind_zone/Backgroundnew.png')
+        surf.blit(image, (0, 0))
+        surf.blit(image, (1067, 0))
+
+        rows = len(self.floor_layer)
         for i in range(rows):
-            for ix, value in enumerate(self.data[i]):
+            for ix, value in enumerate(self.floor_layer[i]):
                 if value in dict_floor.keys():
-                    wall = Walls(ix * SPRITE, i * SPRITE, f'IndustrialTile_{dict_floor[value]}.png')
-                    self.boxes.add(wall)
+                    floor = Walls(ix * SPRITE, i * SPRITE, f'IndustrialTile_{dict_floor[value]}.png')
+                    self.boxes.add(floor)
+        rows = len(self.wall_layer)
+        for i in range(rows):
+            for ix, value in enumerate(self.wall_layer[i]):
+                if value in dict_walls.keys():
+                    if len(dict_walls[value]) < 3:
+                        wall = Walls(ix * SPRITE, i * SPRITE, f'IndustrialTile_{dict_walls[value]}.png')
+                    else:
+                        wall = Walls(ix * SPRITE, i * SPRITE, f'{dict_walls[value]}.png')
+                    self.cells.add(wall)
+        rows = len(self.decor_layer)
+        for i in range(rows):
+            for ix, value in enumerate(self.decor_layer[i]):
+                if value in dict_decor.keys():
+                    wall = Walls(ix * SPRITE, i * SPRITE, f'{dict_decor[value]}.png')
+                    self.decor_cells.add(wall)
 
         self.back_to_menu.hide()
         self.cansel.hide()
         pygame.draw.rect(surf, 'black', (978, 18, 104, 54), 4, 10)
 
     def update(self) -> None:
+        self.cells.draw(screen)
+        self.decor_cells.draw(screen)
         self.boxes.draw(screen)
 
     def open_pause(self, surf: Surface) -> None:
-        self.boxes.draw(screen)
         self.back_to_menu.show()
         self.cansel.show()
         surf.blit(self.pause, (400, 200))
@@ -127,8 +193,3 @@ class AnimatedThings:
             self.count += 1
         else:
             self.count = 0
-
-
-
-
-
