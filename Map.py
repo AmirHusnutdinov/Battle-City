@@ -100,13 +100,6 @@ class TiledMap:
         self.cansel = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((555, 300, 140, 40)),
                                                    text='Отмена',
                                                    manager=manager)
-        # Удали эти кнопкb как появится смерть
-        self.death = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((0, 0, 40, 40)),
-                                                  text='Смэрть',
-                                                  manager=manager)
-        self.win = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 0, 40, 40)),
-                                                text='win',
-                                                manager=manager)
 
         self.pause = pygame.image.load('data/pause.png')
 
@@ -118,8 +111,8 @@ class TiledMap:
         self.decor_layer = filename[2]
         self.cells = pygame.sprite.Group()
         self.decor_cells = pygame.sprite.Group()
-        self.boxes = pygame.sprite.Group()
 
+        self.boxes = pygame.sprite.Group()
         self.ladders = pygame.sprite.Group()
         self.spawn_of_hero = pygame.sprite.Group()
         self.spawn_of_enemy = pygame.sprite.Group()
@@ -182,6 +175,7 @@ class TiledMap:
 
     def on_event(self, event):
         pass
+
 
 class AnimatedThings:
     def __init__(self, x: int, y: int, number_of_thing=1) -> None:

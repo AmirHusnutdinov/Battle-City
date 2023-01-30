@@ -30,6 +30,14 @@ btn_sound = pygame.mixer.Sound('music/btn.mp3')
 win = pygame.mixer.Sound('music/win.mp3')
 win.set_volume(0.3)
 
+level_map = []
+with open('ind_zone/floor.txt', mode='r') as file:
+    level_map.append([line.strip() for line in file])
+with open('ind_zone/wall.txt', mode='r') as file:
+    level_map.append([line.strip() for line in file])
+with open('ind_zone/decor.txt', mode='r') as file:
+    level_map.append([line.strip() for line in file])
+
 
 def load_image(name):
     fullname = os.path.join('ind_zone', name)

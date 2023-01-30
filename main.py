@@ -11,13 +11,6 @@ mode = 'main'
 running = True
 win_or_lose = WinOrLose(screen, mode)
 hero = Hero(200, 200)
-level_map = []
-with open('ind_zone/floor.txt', mode='r') as file:
-    level_map.append([line.strip() for line in file])
-with open('ind_zone/wall.txt', mode='r') as file:
-    level_map.append([line.strip() for line in file])
-with open('ind_zone/decor.txt', mode='r') as file:
-    level_map.append([line.strip() for line in file])
 industrial_zone = TiledMap(level_map)
 rules = Rules()
 start_page = StartPage()

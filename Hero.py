@@ -1,5 +1,5 @@
 from settings import *
-
+from Map import TiledMap
 
 class Hero(Sprite):
     sprite = pygame.image.load('hero/hero_stay/i1.png')
@@ -14,11 +14,10 @@ class Hero(Sprite):
         self.sprite.rect = self.sprite.image.get_rect()
         self.sprite.rect.x = 55
         self.sprite.rect.y = 190
+        self.mode_hero = None
+        self.map = TiledMap(level_map)
 
-    def set_boxes(self, boxes: pygame.sprite.Group) -> None:
-        self.boxes = boxes
-
-    def move(self, x: int, y: int) -> None:
+    def move(self, x: int, y: int):
         old_x = self.rect.x
         old_y = self.rect.y
         if x < 0 or y < 0:
@@ -27,15 +26,24 @@ class Hero(Sprite):
             return
         self.rect.x = x
         self.rect.y = y
-        if not self.boxes:
-            return
-        for box in self.boxes.sprites():
-            if pygame.sprite.collide_mask(self, box):
-                self.rect.x = old_x
-                self.rect.y = old_y
-                return
+        groups = [self.map.boxes, self.map.kill, self.map.win, self.map.ladders]
 
-    def update(self, *args, **kwargs) -> None:
+        for i in groups:
+            for j in i:
+                if pygame.sprite.collide_mask(self, j) and i == self.map.boxes:
+                    self.rect.x = old_x
+                    self.rect.y = old_y
+                    return
+                elif pygame.sprite.collide_mask(self, j) and i == self.map.ladders:
+                    self.mode_hero = 'climb'
+                elif pygame.sprite.collide_mask(self, j) and i == self.map.kill:
+                    mode = 'death'
+                    return mode
+                elif pygame.sprite.collide_mask(self, j) and i == self.map.win:
+                    mode = 'win'
+                    return mode
+
+    def update(self, *args, **kwargs):
         if not self.is_move:
             return
         step = 5
