@@ -79,7 +79,10 @@ dict_decor = {
     '}': 'Box1',
     '{': 'Box2',
     '-': 'Barrel4',
-    '_': 'Barrel3'
+    '_': 'Barrel3',
+    'e': 'Ladder3',
+    'r': 'Ladder2',
+    't': 'Ladder1'
 }
 
 
@@ -149,8 +152,8 @@ class TiledMap:
 
     def update(self) -> None:
         self.cells.draw(screen)
-        self.decor_cells.draw(screen)
         self.boxes.draw(screen)
+        self.decor_cells.draw(screen)
 
     def open_pause(self, surf: Surface) -> None:
         self.back_to_menu.show()

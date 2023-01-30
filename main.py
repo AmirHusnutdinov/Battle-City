@@ -71,7 +71,11 @@ for i in range(len(heroes7)):
     pict7 = pygame.image.load(f'hero/hero_run_attack/normal/{heroes7[i]}')
     mass7.append(pict7)
 count7 = 0
-a = AnimatedThings(200, 100, 4)
+press1, press2 = AnimatedThings(322, 417, 4), AnimatedThings(417, 417, 4)
+scan1, scan2, scan3, scan4 = AnimatedThings(130, 419, 1), AnimatedThings(898, 386, 1), \
+    AnimatedThings(1794, 353, 1), AnimatedThings(2179, 321, 1)
+screen1 = AnimatedThings(641, 450, 2)
+conveer1, conveer2, conveer3 = AnimatedThings(225, 481, 3), AnimatedThings(323, 481, 3), AnimatedThings(418, 481, 3)
 
 while running:
     time_delta = clock.tick(FPS) / 1000
@@ -193,7 +197,18 @@ while running:
         screen.blit(mass5[count5], (600, 200))
         screen.blit(mass6[count6], (700, 200))
         screen.blit(mass7[count7], (800, 200))
-        a.render()
+        press1.render()
+        press2.render()
+        scan1.render()
+        scan2.render()
+        scan3.render()
+        scan4.render()
+        screen1.render()
+        conveer1.render()
+        conveer2.render()
+        conveer3.render()
+
+
 
         #hero.render(screen)
 

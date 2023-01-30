@@ -17,7 +17,7 @@ pygame.display.set_caption('Great way')
 size = WIDTH, HEIGHT = (1100, 590)
 screen = pygame.display.set_mode(size)
 
-manager = pygame_gui.UIManager((1100, 600))
+manager = pygame_gui.UIManager((1100, 590))
 clock = pygame.time.Clock()
 pygame.mixer.music.load('./music/m.mp3')
 pygame.mixer.music.play(-1)
@@ -31,7 +31,7 @@ win = pygame.mixer.Sound('music/win.mp3')
 win.set_volume(0.3)
 
 
-def load_image(name, colorkey=None):
+def load_image(name):
     fullname = os.path.join('ind_zone', name)
     if not os.path.isfile(fullname):
         print(f'Файл с изображениями "{fullname}" не найден')
