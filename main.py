@@ -22,55 +22,6 @@ industrial_zone = TiledMap(level_map)
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
-mass = []
-heroes = (os.listdir(f'{os.path.abspath("hero/hero_stay/normal")}'))
-print(heroes)
-for i in range(len(heroes)):
-    pict = pygame.image.load(f'hero/hero_stay/normal/{heroes[i]}')
-    mass.append(pict)
-count = 0
-
-mass2 = []
-heroes2 = (os.listdir(f'{os.path.abspath("hero/hero_ran/normal")}'))
-for i in range(len(heroes2)):
-    pict2 = pygame.image.load(f'hero/hero_ran/normal/{heroes2[i]}')
-    mass2.append(pict2)
-count2 = 0
-
-mass3 = []
-heroes3 = (os.listdir(f'{os.path.abspath("hero/hero_jump/normal")}'))
-for i in range(len(heroes3)):
-    pict3 = pygame.image.load(f'hero/hero_jump/normal/{heroes3[i]}')
-    mass3.append(pict3)
-count3 = 0
-
-mass4 = []
-heroes4 = (os.listdir(f'{os.path.abspath("hero/hero_attack/normal")}'))
-for i in range(len(heroes4)):
-    pict4 = pygame.image.load(f'hero/hero_attack/normal/{heroes4[i]}')
-    mass4.append(pict4)
-count4 = 0
-
-mass5 = []
-heroes5 = (os.listdir(f'{os.path.abspath("hero/hero_death/normal")}'))
-for i in range(len(heroes5)):
-    pict5 = pygame.image.load(f'hero/hero_death/normal/{heroes5[i]}')
-    mass5.append(pict5)
-count5 = 0
-
-mass6 = []
-heroes6 = (os.listdir(f'{os.path.abspath("hero/hero_climb")}'))
-for i in range(len(heroes6)):
-    pict6 = pygame.image.load(f'hero/hero_climb/{heroes6[i]}')
-    mass6.append(pict6)
-count6 = 0
-
-mass7 = []
-heroes7 = (os.listdir(f'{os.path.abspath("hero/hero_run_attack/normal")}'))
-for i in range(len(heroes7)):
-    pict7 = pygame.image.load(f'hero/hero_run_attack/normal/{heroes7[i]}')
-    mass7.append(pict7)
-count7 = 0
 press1, press2 = AnimatedThings(322, 417, 4), AnimatedThings(417, 417, 4)
 scan1, scan2, scan3, scan4 = AnimatedThings(130, 419, 1), AnimatedThings(898, 386, 1), \
     AnimatedThings(1794, 353, 1), AnimatedThings(2179, 321, 1)
@@ -163,40 +114,6 @@ while running:
     elif mode == 'start':
         industrial_zone.render(screen)
         industrial_zone.update()
-        # hero.all_sprites.draw(screen
-        if count < 3 or count3 < 3:
-            count += 1
-            count3 += 1
-        else:
-            count = 0
-            count3 = 0
-
-        if count2 < 5 or count6 < 5 or count7 < 5:
-            count2 += 1
-            count6 += 1
-            count7 += 1
-        else:
-            count2 = 0
-            count6 = 0
-            count7 = 0
-
-        if count4 < 13:
-            count4 += 1
-        else:
-            count4 = 0
-
-        if count5 < 7:
-            count5 += 1
-        else:
-            count5 = 0
-
-        screen.blit(mass[count], (200, 200))
-        screen.blit(mass2[count2], (300, 200))
-        screen.blit(mass3[count3], (400, 200))
-        screen.blit(mass4[count4], (500, 200))
-        screen.blit(mass5[count5], (600, 200))
-        screen.blit(mass6[count6], (700, 200))
-        screen.blit(mass7[count7], (800, 200))
         press1.render()
         press2.render()
         scan1.render()
@@ -208,19 +125,14 @@ while running:
         conveer2.render()
         conveer3.render()
 
-
-
-        #hero.render(screen)
-
     elif mode == 'pause':
         industrial_zone.render(screen)
-        #hero.render(screen)
+        industrial_zone.update()
         industrial_zone.open_pause(screen)
 
     elif mode == 'death' or mode == 'win':
         industrial_zone.render(screen)
         industrial_zone.pause_btn.hide()
-        #hero.render(screen)
         win_or_lose.render(mode)
     manager.draw_ui(screen)
     clock.tick(FPS)

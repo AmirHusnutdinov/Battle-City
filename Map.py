@@ -17,6 +17,7 @@ dict_floor = {
     'k': '36',
     '<': '27',
     '>': '62',
+    'т': '18',
     ';': '81',
     '!': '31',
     '?': '40',
@@ -119,6 +120,12 @@ class TiledMap:
         self.decor_cells = pygame.sprite.Group()
         self.boxes = pygame.sprite.Group()
 
+        self.ladders = pygame.sprite.Group()
+        self.spawn_of_hero = pygame.sprite.Group()
+        self.spawn_of_enemy = pygame.sprite.Group()
+        self.kill = pygame.sprite.Group()
+        self.win = pygame.sprite.Group()
+
     def render(self, surf: Surface) -> None:
         image = pygame.image.load('ind_zone/Backgroundnew.png')
         surf.blit(image, (0, 0))
@@ -130,6 +137,16 @@ class TiledMap:
                 if value in dict_floor.keys():
                     floor = Walls(ix * SPRITE, i * SPRITE, f'IndustrialTile_{dict_floor[value]}.png')
                     self.boxes.add(floor)
+                if value == '!':
+                    self.ladders.add(floor)
+                elif value == 'з':
+                    self.spawn_of_hero.add(floor)
+                elif value == 'т':
+                    self.spawn_of_enemy.add(floor)
+                elif value == '9':
+                    self.kill.add(floor)
+                elif value == 'в':
+                    self.win.add(floor)
         rows = len(self.wall_layer)
         for i in range(rows):
             for ix, value in enumerate(self.wall_layer[i]):
@@ -163,6 +180,8 @@ class TiledMap:
         pygame.draw.rect(surf, 'black', (403, 299, 144, 43), 10, 4)
         pygame.draw.rect(surf, 'black', (553, 299, 144, 43), 10, 4)
 
+    def on_event(self, event):
+        pass
 
 class AnimatedThings:
     def __init__(self, x: int, y: int, number_of_thing=1) -> None:
