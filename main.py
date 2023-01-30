@@ -3,7 +3,7 @@ from StartPage import StartPage
 from confirmation_dialog import ConfirmationDialog
 from rules import Rules
 from Map import TiledMap, AnimatedThings
-from Hero import Hero
+from Map import Hero
 from Win_or__Lose import WinOrLose
 
 

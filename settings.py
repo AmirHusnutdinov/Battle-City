@@ -22,7 +22,7 @@ clock = pygame.time.Clock()
 pygame.mixer.music.load('./music/m.mp3')
 pygame.mixer.music.play(-1)
 
-pygame.mixer.music.set_volume(0.01)
+pygame.mixer.music.set_volume(0.05)
 lose = pygame.mixer.Sound('music/lose.mp3')
 lose.set_volume(0.02)
 
@@ -31,6 +31,7 @@ win = pygame.mixer.Sound('music/win.mp3')
 win.set_volume(0.03)
 
 level_map = []
+
 with open('ind_zone/floor.txt', mode='r') as file:
     level_map.append([line.strip() for line in file])
 with open('ind_zone/wall.txt', mode='r') as file:
