@@ -1,98 +1,38 @@
 import pygame.sprite
 
-from Sprites import Walls
+from Sprites import Cell, Floors
 from settings import *
 
-dict_floor = {
-    '1': '73',
-    '2': '04',
-    '3': '13',
-    '4': '05',
-    '5': '06',
-    '6': '15',
-    '7': '16',
-    '8': '14',
-    '9': '67',
-    'q': '22',
-    'w': '24',
-    'j': '71',
-    'k': '36',
-    '<': '27',
-    '>': '62',
-    'т': '18',
-    ';': '81',
-    '!': '31',
-    '?': '40',
-    '%': '49',
-    '#': '50',
-    '$': '51',
-    '@': '42',
-    '(': '33',
-    ')': '32',
-    '*': '41',
-    '&': '45',
-    '^': '54',
-    '~': '63',
-    '/': '61',
-    '+': '70',
-    'ы': '23',
-    'э': '17',
-    'з': '72',
-    'в': '80'
 
-}
-
-dict_walls = {
-    'y': '03',
-    'u': '11',
-    'i': '26',
-    'o': '12',
-    'p': '02',
-    'g': '21',
-    'h': '46',
-    '&': '45',
-    '^': '54',
-    '~': '63',
-    '/': '61',
-    '+': '70',
-    'l': 'Pointer1',
-    '[': 'Fence1',
-    ']': 'Fence2',
-    '=': 'Fence3',
-    'й': '10',
-    'ц': '01',
-    'у': '19',
-    'г': '39',
-    'я': '29',
-    'ч': '20',
-    'ф': '30'
-}
-
-dict_decor = {
-    'd': 'Locker1',
-    'a': 'Fire-extinguisher1',
-    'f': 'Locker4',
-    'z': 'Mop',
-    'x': 'Bucket',
-    'c': 'Board3',
-    'v': 'Box4',
-    'b': 'Box3',
-    'n': 'Box5',
-    'm': 'Bench',
-    '}': 'Box1',
-    '{': 'Box2',
-    '-': 'Barrel4',
-    '_': 'Barrel3',
-    'e': 'Ladder3',
-    'r': 'Ladder2',
-    't': 'Ladder1'
-}
+dict_floor = {'1': 'IndustrialTile_25.png',
+              '2': 'IndustrialTile_55.png',
+              '3': 'IndustrialTile_56.png',
+              '5': 'IndustrialTile_64.png',
+              'q': 'IndustrialTile_73.png',
+              't': 'IndustrialTile_65.png',
+              'd': 'IndustrialTile_66.png'}
+dict_wall = {'4': 'IndustrialTile_57.png',
+             '6': 'IndustrialTile_03.png',
+             '7': 'IndustrialTile_12.png',
+             '8': 'IndustrialTile_11.png',
+             '9': 'IndustrialTile_41.png',
+             'w': 'IndustrialTile_39.png',
+             'e': 'IndustrialTile_29.png',
+             'r': 'IndustrialTile_30.png',
+             'y': 'IndustrialTile_20.png',
+             'u': 'IndustrialTile_02.png',
+             'i': 'IndustrialTile_19.png',
+             'o': 'IndustrialTile_01.png',
+             'p': 'IndustrialTile_28.png',
+             'a': 'IndustrialTile_10.png',
+             's': 'IndustrialTile_38.png'}
 
 
 class TiledMap:
 
     def __init__(self, filename: list) -> None:
 
+        self.hero = None
         self.pause_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((980, 20, 100, 50)),
                                                       text='Pause',
                                                       manager=manager)
@@ -108,67 +48,40 @@ class TiledMap:
         self.pause_btn.hide()
         self.back_to_menu.hide()
         self.cansel.hide()
-        self.floor_layer = filename[0]
-        self.wall_layer = filename[1]
-        self.decor_layer = filename[2]
-        self.cells = pygame.sprite.Group()
-        self.decor_cells = pygame.sprite.Group()
+        self.floor_layer = filename
 
-        self.boxes = pygame.sprite.Group()
-        self.ladders = pygame.sprite.Group()
-        self.spawn_of_hero = pygame.sprite.Group()
-        self.spawn_of_enemy = pygame.sprite.Group()
-        self.kill = pygame.sprite.Group()
-        self.win = pygame.sprite.Group()
+        self.all_sprites = pygame.sprite.Group()
+        boxes = pygame.sprite.Group()
+        rows = len(self.floor_layer)
+        for i in range(rows):
+            for ix, value in enumerate(self.floor_layer[i]):
+                if value in dict_wall.keys() or value == '@':
+                    if value != '@':
+                        self.all_sprites.add(Cell(ix * SPRITE, i * SPRITE, f'{dict_wall[value]}'))
+                    else:
+                        self.all_sprites.add(Cell(ix * SPRITE, i * SPRITE, f'{dict_wall["7"]}'))
+                elif value in dict_floor.keys():
+                    floor = Floors(ix * SPRITE, i * SPRITE, f'{dict_floor[value]}')
+                    self.all_sprites.add(floor)
+                    boxes.add(floor)
+                if value == '@':
+                    self.hero = Hero(ix * SPRITE, i * SPRITE)
+        if self.hero:
+            self.all_sprites.add(self.hero)
+            self.hero.set_boxes(boxes)
 
     def render(self, surf: Surface) -> None:
         image = pygame.image.load('ind_zone/Backgroundnew.png')
         surf.blit(image, (0, 0))
         surf.blit(image, (1067, 0))
 
-        rows = len(self.floor_layer)
-        for i in range(rows):
-            for ix, value in enumerate(self.floor_layer[i]):
-                if value in dict_floor.keys():
-                    floor = Walls(ix * SPRITE, i * SPRITE, f'IndustrialTile_{dict_floor[value]}.png')
-                    self.boxes.add(floor)
-                if value == '!':
-                    self.ladders.add(floor)
-                elif value == 'з':
-                    self.spawn_of_hero.add(floor)
-                    self.spawn_of_hero.add(Hero(ix * SPRITE, i * SPRITE))
-                elif value == 'т':
-                    self.spawn_of_enemy.add(floor)
-                elif value == '9':
-                    self.kill.add(floor)
-                elif value == 'в':
-                    self.win.add(floor)
-        rows = len(self.wall_layer)
-        for i in range(rows):
-            for ix, value in enumerate(self.wall_layer[i]):
-                if value in dict_walls.keys():
-                    if len(dict_walls[value]) < 3:
-                        wall = Walls(ix * SPRITE, i * SPRITE, f'IndustrialTile_{dict_walls[value]}.png')
-                    else:
-                        wall = Walls(ix * SPRITE, i * SPRITE, f'{dict_walls[value]}.png')
-                    self.cells.add(wall)
-        rows = len(self.decor_layer)
-        for i in range(rows):
-            for ix, value in enumerate(self.decor_layer[i]):
-                if value in dict_decor.keys():
-                    wall = Walls(ix * SPRITE, i * SPRITE, f'{dict_decor[value]}.png')
-                    self.decor_cells.add(wall)
-
         self.back_to_menu.hide()
         self.cansel.hide()
         pygame.draw.rect(surf, 'black', (978, 18, 104, 54), 4, 10)
-        self.spawn_of_hero.draw(screen)
 
     def update(self) -> None:
-        self.cells.draw(screen)
-        self.boxes.draw(screen)
-        self.decor_cells.draw(screen)
-        self.spawn_of_hero.draw(screen)
+        self.all_sprites.draw(screen)
+        self.all_sprites.update()
 
     def open_pause(self, surf: Surface) -> None:
         self.back_to_menu.show()
@@ -179,7 +92,8 @@ class TiledMap:
         pygame.draw.rect(surf, 'black', (553, 299, 144, 43), 10, 4)
 
     def on_event(self, event):
-        pass
+        for sprite in self.all_sprites.sprites():
+            sprite.on_event(event)
 
 
 class AnimatedThings:
@@ -217,11 +131,10 @@ class AnimatedThings:
 
 
 class Hero(Sprite):
-    sprite = pygame.image.load('hero/hero_stay/normal/танк1.png')
+    sprite = load_image('танк2.png')
 
-    def __init__(self, x: int, y: int) -> None:
+    def __init__(self, x, y):
         super().__init__(x, y)
-        self.all_sprites = pygame.sprite.Group()
         self.is_move = False
         self.direction = None
 
@@ -233,7 +146,7 @@ class Hero(Sprite):
         old_y = self.rect.y
         if x < 0 or y < 0:
             return
-        if x + self.rect.width < WIDTH or y + self.rect.height > HEIGHT:
+        if x + self.rect.width > WIDTH or y + self.rect.height > HEIGHT:
             return
         self.rect.x = x
         self.rect.y = y
@@ -243,6 +156,7 @@ class Hero(Sprite):
             if pygame.sprite.collide_mask(self, box):
                 self.rect.x = old_x
                 self.rect.y = old_y
+                return
 
     def update(self, *args, **kwargs):
         if not self.is_move:
@@ -250,20 +164,90 @@ class Hero(Sprite):
         step = 5
         if self.direction == pygame.K_LEFT:
             self.move(self.rect.x - step, self.rect.y)
+            print('left')
         if self.direction == pygame.K_RIGHT:
             self.move(self.rect.x + step, self.rect.y)
-        if self.direction == pygame.K_RIGHT:
+            print('r')
+        if self.direction == pygame.K_UP:
             self.move(self.rect.x, self.rect.y - step)
-        if self.direction == pygame.K_RIGHT:
+            print('up')
+        if self.direction == pygame.K_DOWN:
             self.move(self.rect.x, self.rect.y + step)
+            print('down')
+        print(2)
 
     def on_event(self, event: pygame.event) -> None:
         if event.type == pygame.KEYUP:
             self.is_move = False
             self.direction = False
+            print('KEYUP')
         if event.type != pygame.KEYDOWN:
             return
-        if event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
+        if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
             self.is_move = True
             self.direction = event.key
+            print('K_RIGHT')
+        print(1)
+
+
+# class Hero(Sprite):
+#     sprite = pygame.image.load('hero/hero_stay/normal/танк1.png')
+#
+#     def __init__(self, x: int, y: int) -> None:
+#         super().__init__(x, y)
+#         self.image = self.__class__.sprite
+#         self.rect = self.image.get_rect()
+#         self.rect.x = x
+#         self.rect.y = y
+#         self.all_sprites = pygame.sprite.Group()
+#         self.is_move = False
+#         self.direction = None
+#
+#     def set_boxes(self, boxes: pygame.sprite.Group):
+#         self.boxes = boxes
+#
+#     def move(self, x: int, y: int):
+#         old_x = self.rect.x
+#         old_y = self.rect.y
+#         if x < 0 or y < 0:
+#             return
+#         if x + self.rect.width < WIDTH or y + self.rect.height > HEIGHT:
+#             return
+#         self.rect.x = x
+#         self.rect.y = y
+#         if not self.boxes:
+#             return
+#         for box in self.boxes.sprites():
+#             if pygame.sprite.collide_mask(self, box):
+#                 self.rect.x = old_x
+#                 self.rect.y = old_y
+#                 return
+#
+#     def update(self, *args, **kwargs):
+#         print(1)
+#         if not self.is_move:
+#             return
+#         step = 5
+#         if self.direction == pygame.K_LEFT:
+#             self.move(self.rect.x - step, self.rect.y)
+#         if self.direction == pygame.K_RIGHT:
+#             self.move(self.rect.x + step, self.rect.y)
+#         if self.direction == pygame.K_RIGHT:
+#             self.move(self.rect.x, self.rect.y - step)
+#         if self.direction == pygame.K_RIGHT:
+#             self.move(self.rect.x, self.rect.y + step)
+#         print(2)
+#
+#     def on_event(self, event: pygame.event) -> None:
+#         if event.type == pygame.KEYUP:
+#             self.is_move = False
+#             self.direction = False
+#             print('KEYUP')
+#         if event.type != pygame.KEYDOWN:
+#             print('KEYDOWN')
+#             return
+#         if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
+#             self.is_move = True
+#             self.direction = event.key
+#             print('K_RIGHT')
 

@@ -10,8 +10,7 @@ from Win_or__Lose import WinOrLose
 mode = 'main'
 running = True
 win_or_lose = WinOrLose(screen, mode)
-hero = Hero(200, 200)
-industrial_zone = TiledMap(level_map)
+industrial_zone = TiledMap(level_map1)
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
@@ -25,18 +24,16 @@ while running:
     time_delta = clock.tick(FPS) / 1000
 
     for event in pygame.event.get():
-
         if event.type == pygame.QUIT:
             confirmation_dialog.open_confirmation_dialog()
 
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
             btn_sound.play()
             running = False
-        hero.on_event(event)
-
+        industrial_zone.on_event(event)
         manager.process_events(event)
     manager.update(time_delta)
-
+    industrial_zone.update()
     if start_page.start_btn.check_pressed() or \
             industrial_zone.cansel.check_pressed() or win_or_lose.restart.check_pressed():
         mode = 'start'

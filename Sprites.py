@@ -1,7 +1,7 @@
 from settings import *
 
 
-class Walls(Sprite):
+class Cell(Sprite):
     def __init__(self, x, y, sprite):
         super().__init__(x, y, sprite)
         self.image = load_image(sprite)

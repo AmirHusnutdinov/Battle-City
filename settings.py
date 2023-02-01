@@ -1,4 +1,5 @@
 import os
+import pprint
 import random
 import sys
 
@@ -14,7 +15,7 @@ shift_of_map = 0
 
 pygame.init()
 pygame.display.set_caption('Great way')
-size = WIDTH, HEIGHT = (1100, 590)
+size = WIDTH, HEIGHT = (992, 640)
 screen = pygame.display.set_mode(size)
 
 manager = pygame_gui.UIManager((1100, 590))
@@ -30,14 +31,9 @@ btn_sound = pygame.mixer.Sound('music/btn.mp3')
 win = pygame.mixer.Sound('music/win.mp3')
 win.set_volume(0.03)
 
-level_map = []
 
-with open('ind_zone/floor.txt', mode='r') as file:
-    level_map.append([line.strip() for line in file])
 with open('ind_zone/wall.txt', mode='r') as file:
-    level_map.append([line.strip() for line in file])
-with open('ind_zone/decor.txt', mode='r') as file:
-    level_map.append([line.strip() for line in file])
+    level_map1 = [line.strip() for line in file]
 
 
 def load_image(name):
@@ -54,7 +50,18 @@ class Sprite(pygame.sprite.Sprite):
 
     def __init__(self, x: int, y: int, sprite=None) -> None:
         super().__init__()
-        self.image = self.__class__.sprite
+        if sprite is not None:
+            self.image = load_image(sprite)
+        else:
+            self.image = self.__class__.sprite
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        if self.rect.width < SPRITE:
+            self.rect.x += (SPRITE - self.rect.width) // 2
+        if self.rect.height < SPRITE:
+            self.rect.y += (SPRITE - self.rect.height) // 2
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def on_event(self, event):
+        pass
