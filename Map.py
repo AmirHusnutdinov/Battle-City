@@ -1,3 +1,5 @@
+import pygame.sprite
+
 from Sprites import Walls
 from settings import *
 
@@ -215,20 +217,16 @@ class AnimatedThings:
 
 
 class Hero(Sprite):
-    sprite = pygame.image.load('hero/hero_stay/normal/i1.png')
+    sprite = pygame.image.load('hero/hero_stay/normal/танк1.png')
 
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y)
         self.all_sprites = pygame.sprite.Group()
         self.is_move = False
         self.direction = None
-        self.sprite = pygame.sprite.Sprite()
-        self.sprite.image = pygame.image.load("hero/hero_stay/normal/i1.png")
-        self.sprite.rect = self.sprite.image.get_rect()
-        self.sprite.rect.x = 55
-        self.sprite.rect.y = 190
-        self.mode_hero = None
-        self.map = TiledMap(level_map)
+
+    def set_boxes(self, boxes: pygame.sprite.Group):
+        self.boxes = boxes
 
     def move(self, x: int, y: int):
         old_x = self.rect.x
@@ -239,22 +237,12 @@ class Hero(Sprite):
             return
         self.rect.x = x
         self.rect.y = y
-        groups = [self.map.boxes, self.map.kill, self.map.win, self.map.ladders]
-
-        for i in groups:
-            for j in i:
-                if pygame.sprite.collide_mask(self, j) and i == self.map.boxes:
-                    self.rect.x = old_x
-                    self.rect.y = old_y
-                    return
-                elif pygame.sprite.collide_mask(self, j) and i == self.map.ladders:
-                    self.mode_hero = 'climb'
-                elif pygame.sprite.collide_mask(self, j) and i == self.map.kill:
-                    mode = 'death'
-                    return mode
-                elif pygame.sprite.collide_mask(self, j) and i == self.map.win:
-                    mode = 'win'
-                    return mode
+        if not self.boxes:
+            return
+        for box in self.boxes.sprites():
+            if pygame.sprite.collide_mask(self, box):
+                self.rect.x = old_x
+                self.rect.y = old_y
 
     def update(self, *args, **kwargs):
         if not self.is_move:
@@ -264,6 +252,10 @@ class Hero(Sprite):
             self.move(self.rect.x - step, self.rect.y)
         if self.direction == pygame.K_RIGHT:
             self.move(self.rect.x + step, self.rect.y)
+        if self.direction == pygame.K_RIGHT:
+            self.move(self.rect.x, self.rect.y - step)
+        if self.direction == pygame.K_RIGHT:
+            self.move(self.rect.x, self.rect.y + step)
 
     def on_event(self, event: pygame.event) -> None:
         if event.type == pygame.KEYUP:
