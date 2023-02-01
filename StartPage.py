@@ -18,9 +18,9 @@ class StartPage:
         self.image = self.backgrounds_lst[random.randrange(0, len(self.backgrounds_lst))]
 
         self.choose_level = pygame_gui.elements.ui_drop_down_menu.UIDropDownMenu(
-            options_list=['Industrial Zone', 'Coming soon...'],
-            starting_option='Industrial Zone',
-            relative_rect=pygame.Rect(300, 275, 150, 50),
+            options_list=['Industrial Zone 1', 'Industrial Zone 2'],
+            starting_option='Industrial Zone 1',
+            relative_rect=pygame.Rect(295, 275, 165, 50),
             manager=manager)
 
         self.start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((500, 275), (150, 60)),
@@ -54,7 +54,7 @@ class StartPage:
         pygame.draw.rect(surf, (255, random.randrange(1, 256), random.randrange(1, 256)),
                          (498, 273, 155, 65), 10, 10)
         pygame.draw.rect(surf, 'grey', (698, 273, 155, 55), 10, 10)
-        pygame.draw.rect(surf, 'grey', (298, 273, 155, 55), 10, 10)
+        pygame.draw.rect(surf, 'grey', (293, 273, 170, 55), 10, 10)
 
         self.graffiti = (os.listdir(f'{os.path.abspath("graffiti")}'))
         self.coordinates = [(300, 500), (700, 500), (150, 400),
