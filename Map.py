@@ -131,12 +131,15 @@ class AnimatedThings:
 
 
 class Hero(Sprite):
-    sprite = load_image('танк2.png')
+    sprite = load_image('../hero/hero_stay/normal/танк1.png')
 
     def __init__(self, x, y):
         super().__init__(x, y)
         self.is_move = False
         self.direction = None
+        self.right = [pygame.image.load('hero/hero_stay/normal/танк8.png'),
+                      pygame.image.load('hero/hero_stay/normal/танк9.png'),
+                      pygame.image.load('hero/hero_stay/normal/танк10.png')]
 
     def set_boxes(self, boxes: pygame.sprite.Group):
         self.boxes = boxes
@@ -158,36 +161,84 @@ class Hero(Sprite):
                 self.rect.y = old_y
                 return
 
+    def a(self):
+        for i in self.right:
+            self.sprite = i
+
     def update(self, *args, **kwargs):
         if not self.is_move:
             return
         step = 5
         if self.direction == pygame.K_LEFT:
             self.move(self.rect.x - step, self.rect.y)
-            print('left')
         if self.direction == pygame.K_RIGHT:
             self.move(self.rect.x + step, self.rect.y)
-            print('r')
         if self.direction == pygame.K_UP:
             self.move(self.rect.x, self.rect.y - step)
-            print('up')
         if self.direction == pygame.K_DOWN:
             self.move(self.rect.x, self.rect.y + step)
-            print('down')
-        print(2)
 
     def on_event(self, event: pygame.event) -> None:
         if event.type == pygame.KEYUP:
             self.is_move = False
             self.direction = False
-            print('KEYUP')
+
         if event.type != pygame.KEYDOWN:
             return
         if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
             self.is_move = True
             self.direction = event.key
-            print('K_RIGHT')
-        print(1)
+        if event.key == pygame.K_RCTRL:
+            Bullet(self.rect.x, self.rect.y)
+
+
+
+class Bullet(Sprite):
+    sprite = pygame.image.load('hero/hero_stay/normal/зеленый_снаряд1.png')
+
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.x = x
+        self.y = y
+        #self.position = position
+        self.is_move = False
+
+    def set_boxes(self, boxes: pygame.sprite.Group):
+        self.boxes = boxes
+
+    def update(self, *args, **kwargs):
+        if not self.is_move:
+            return
+        step = 5
+        # if self.direction == pygame.K_LEFT:
+        self.move()
+        # if self.direction == pygame.K_RIGHT:
+        #     self.move(self.rect.x + step, self.rect.y)
+        # if self.direction == pygame.K_UP:
+        #     self.move(self.rect.x, self.rect.y - step)
+        # if self.direction == pygame.K_DOWN:
+        #     self.move(self.rect.x, self.rect.y + step)
+
+    def move(self):
+        print(123)
+
+        self.x += 5
+        if self.x < 0 or self.y < 0:
+            return
+        if self.x + self.rect.width > WIDTH or self.y + self.rect.height > HEIGHT:
+            return
+        self.rect.x = self.x
+        self.rect.y = self.y
+        if not self.boxes:
+            return
+        for box in self.boxes.sprites():
+            if pygame.sprite.collide_mask(self, box):
+                print('BOOM!!!')
+                return
+
+
+
+
 
 
 # class Hero(Sprite):

@@ -20,15 +20,15 @@ class StartPage:
         self.choose_level = pygame_gui.elements.ui_drop_down_menu.UIDropDownMenu(
             options_list=['Industrial Zone 1', 'Industrial Zone 2'],
             starting_option='Industrial Zone 1',
-            relative_rect=pygame.Rect(295, 275, 165, 50),
+            relative_rect=pygame.Rect(255, 275, 165, 50),
             manager=manager)
 
-        self.start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((500, 275), (150, 60)),
+        self.start_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((460, 275), (150, 60)),
                                                       text='Start',
                                                       tool_tip_text='Старт уровня игры',
                                                       manager=manager)
 
-        self.rule_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((700, 275), (150, 50)),
+        self.rule_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((660, 275), (150, 50)),
                                                      text='Rules',
                                                      tool_tip_text='Откроет правилила игры',
                                                      manager=manager)
@@ -52,15 +52,15 @@ class StartPage:
     def render_front(self, surf: Surface) -> None:
 
         pygame.draw.rect(surf, (255, random.randrange(1, 256), random.randrange(1, 256)),
-                         (498, 273, 155, 65), 10, 10)
-        pygame.draw.rect(surf, 'grey', (698, 273, 155, 55), 10, 10)
-        pygame.draw.rect(surf, 'grey', (293, 273, 170, 55), 10, 10)
+                         (458, 273, 155, 65), 10, 10)
+        pygame.draw.rect(surf, 'grey', (658, 273, 155, 55), 10, 10)
+        pygame.draw.rect(surf, 'grey', (253, 273, 170, 55), 10, 10)
 
         self.graffiti = (os.listdir(f'{os.path.abspath("graffiti")}'))
-        self.coordinates = [(300, 500), (700, 500), (150, 400),
+        self.coordinates = [(300, 550), (700, 600), (150, 400),
                             (500, 450), (900, 100), (300, 150),
                             (960, 300), (600, 100), (980, 500),
-                            (300, 440), (700, 250)]
+                            (260, 440), (660, 250)]
 
         for i in range(len(self.graffiti)):
             self.pict = pygame.image.load(f'graffiti/{self.graffiti[i]}')

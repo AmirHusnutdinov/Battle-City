@@ -18,7 +18,7 @@ pygame.display.set_caption('Great way')
 size = WIDTH, HEIGHT = (992, 640)
 screen = pygame.display.set_mode(size)
 
-manager = pygame_gui.UIManager((1100, 590))
+manager = pygame_gui.UIManager((1100, 640))
 clock = pygame.time.Clock()
 pygame.mixer.music.load('./music/m.mp3')
 pygame.mixer.music.play(-1)
