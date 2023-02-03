@@ -26,7 +26,7 @@ while running:
         if event.type == pygame.QUIT:
             confirmation_dialog.open_confirmation_dialog()
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
-            btn_sound.play()
+            # btn_sound.play()
             running = False
         industrial_zone.on_event(event)
         manager.process_events(event)
@@ -42,7 +42,7 @@ while running:
         win_or_lose.restart.hide()
         win_or_lose.menu.hide()
 
-        btn_sound.play()
+        # btn_sound.play()
 
         industrial_zone.cansel.hide()
         industrial_zone.pause_btn.hide()
@@ -55,7 +55,7 @@ while running:
 
     elif start_page.rule_btn.check_pressed():
         mode = 'rules'
-        btn_sound.play()
+        # btn_sound.play()
 
         start_page.start_btn.hide()
         start_page.rule_btn.hide()
@@ -64,7 +64,7 @@ while running:
     elif industrial_zone.pause_btn.check_pressed():
         pygame.mixer.music.pause()
         mode = 'pause'
-        btn_sound.play()
+        # btn_sound.play()
 
     elif industrial_zone.back_to_menu.check_pressed() or \
             rules.back_btn.check_pressed() or win_or_lose.menu.check_pressed():
@@ -73,7 +73,7 @@ while running:
         win_or_lose.restart.hide()
         win_or_lose.menu.hide()
         rules.back_btn.hide()
-        btn_sound.play()
+        # btn_sound.play()
 
     # elif industrial_zone.death.check_pressed():
     #     mode = 'death'
