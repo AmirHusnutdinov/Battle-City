@@ -20,7 +20,7 @@ screen = pygame.display.set_mode(size)
 
 manager = pygame_gui.UIManager((1100, 640))
 clock = pygame.time.Clock()
-pygame.mixer.music.load('./music/m.mp3')
+pygame.mixer.music.load('./music/start.mp3')
 pygame.mixer.music.play(-1)
 
 pygame.mixer.music.set_volume(0.05)

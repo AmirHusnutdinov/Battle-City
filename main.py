@@ -3,7 +3,6 @@ from StartPage import StartPage
 from confirmation_dialog import ConfirmationDialog
 from rules import Rules
 from Map import TiledMap, AnimatedThings
-from Map import Hero
 from Win_or__Lose import WinOrLose
 
 mode = 'main'
@@ -26,7 +25,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             confirmation_dialog.open_confirmation_dialog()
-
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
             btn_sound.play()
             running = False
