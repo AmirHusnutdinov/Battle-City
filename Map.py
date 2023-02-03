@@ -3,16 +3,15 @@ import pygame.sprite
 from Sprites import Cell, Floors
 from settings import *
 
-
 dict_floor = {'1': 'IndustrialTile_25.png',
               '2': 'IndustrialTile_55.png',
               '3': 'IndustrialTile_56.png',
               '5': 'IndustrialTile_64.png',
               'q': 'IndustrialTile_73.png',
               't': 'IndustrialTile_65.png',
-              'd': 'IndustrialTile_66.png'}
-dict_wall = {'4': 'IndustrialTile_57.png',
-             '6': 'IndustrialTile_03.png',
+              'd': 'IndustrialTile_66.png',
+              '4': 'IndustrialTile_57.png'}
+dict_wall = {'6': 'IndustrialTile_03.png',
              '7': 'IndustrialTile_12.png',
              '8': 'IndustrialTile_11.png',
              '9': 'IndustrialTile_41.png',
@@ -59,7 +58,7 @@ class TiledMap:
                     if value != '@':
                         self.all_sprites.add(Cell(ix * SPRITE, i * SPRITE, f'{dict_wall[value]}'))
                     else:
-                        self.all_sprites.add(Cell(ix * SPRITE, i * SPRITE, f'{dict_wall["7"]}'))
+                        self.all_sprites.add(Cell(ix * SPRITE, i * SPRITE, f'{dict_wall["9"]}'))
                 elif value in dict_floor.keys():
                     floor = Floors(ix * SPRITE, i * SPRITE, f'{dict_floor[value]}')
                     self.all_sprites.add(floor)
@@ -131,12 +130,17 @@ class AnimatedThings:
 
 
 class Hero(Sprite):
-    sprite = load_image('танк2.png')
+    sprite = load_image('../hero/hero_stay/normal/танк7.png')
 
     def __init__(self, x, y):
         super().__init__(x, y)
         self.is_move = False
         self.direction = None
+        self.ishot = False
+        self.bullets = pygame.sprite.Group()
+        self.right = [pygame.image.load('hero/hero_stay/normal/танк8.png'),
+                      pygame.image.load('hero/hero_stay/normal/танк9.png'),
+                      pygame.image.load('hero/hero_stay/normal/танк10.png')]
 
     def set_boxes(self, boxes: pygame.sprite.Group):
         self.boxes = boxes
@@ -158,96 +162,71 @@ class Hero(Sprite):
                 self.rect.y = old_y
                 return
 
+    def check_hit(self):
+        booms = [pygame.image.load('hero/hero_stay/normal/взрыв1.png'),
+                 pygame.image.load('hero/hero_stay/normal/взрыв2.png'),
+                 pygame.image.load('hero/hero_stay/normal/взрыв3.png'),
+                 pygame.image.load('hero/hero_stay/normal/взрыв4.png')]
+
+        for box in self.boxes.sprites():
+            for bull in self.bullets.sprites():
+                if pygame.sprite.collide_mask(box, bull):
+                    x = box.rect.x
+                    y = box.rect.y
+                    pygame.sprite.spritecollide(box, self.bullets, True)
+                    for i in booms:
+                        rect = i.get_rect(bottomright=(x + 32, y + 32))
+                        screen.blit(i, rect)
+
     def update(self, *args, **kwargs):
+        if self.ishot:
+            dx = 0
+            dy = -20
+            b = Bullet(self, self.rect.x, self.rect.y, dx, dy, self.bullets)
+            self.bullets.add(b)
+        self.bullets.draw(screen)
+        self.bullets.update()
+        self.check_hit()
         if not self.is_move:
             return
         step = 5
         if self.direction == pygame.K_LEFT:
             self.move(self.rect.x - step, self.rect.y)
-            print('left')
         if self.direction == pygame.K_RIGHT:
             self.move(self.rect.x + step, self.rect.y)
-            print('r')
         if self.direction == pygame.K_UP:
             self.move(self.rect.x, self.rect.y - step)
-            print('up')
         if self.direction == pygame.K_DOWN:
             self.move(self.rect.x, self.rect.y + step)
-            print('down')
-        print(2)
 
     def on_event(self, event: pygame.event) -> None:
         if event.type == pygame.KEYUP:
             self.is_move = False
             self.direction = False
-            print('KEYUP')
-        if event.type != pygame.KEYDOWN:
-            return
-        if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
-            self.is_move = True
-            self.direction = event.key
-            print('K_RIGHT')
-        print(1)
+            self.ishot = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
+                self.is_move = True
+                self.direction = event.key
+            if event.key == pygame.K_RCTRL:
+                print('1')
+                self.ishot = True
 
 
-# class Hero(Sprite):
-#     sprite = pygame.image.load('hero/hero_stay/normal/танк1.png')
-#
-#     def __init__(self, x: int, y: int) -> None:
-#         super().__init__(x, y)
-#         self.image = self.__class__.sprite
-#         self.rect = self.image.get_rect()
-#         self.rect.x = x
-#         self.rect.y = y
-#         self.all_sprites = pygame.sprite.Group()
-#         self.is_move = False
-#         self.direction = None
-#
-#     def set_boxes(self, boxes: pygame.sprite.Group):
-#         self.boxes = boxes
-#
-#     def move(self, x: int, y: int):
-#         old_x = self.rect.x
-#         old_y = self.rect.y
-#         if x < 0 or y < 0:
-#             return
-#         if x + self.rect.width < WIDTH or y + self.rect.height > HEIGHT:
-#             return
-#         self.rect.x = x
-#         self.rect.y = y
-#         if not self.boxes:
-#             return
-#         for box in self.boxes.sprites():
-#             if pygame.sprite.collide_mask(self, box):
-#                 self.rect.x = old_x
-#                 self.rect.y = old_y
-#                 return
-#
-#     def update(self, *args, **kwargs):
-#         print(1)
-#         if not self.is_move:
-#             return
-#         step = 5
-#         if self.direction == pygame.K_LEFT:
-#             self.move(self.rect.x - step, self.rect.y)
-#         if self.direction == pygame.K_RIGHT:
-#             self.move(self.rect.x + step, self.rect.y)
-#         if self.direction == pygame.K_RIGHT:
-#             self.move(self.rect.x, self.rect.y - step)
-#         if self.direction == pygame.K_RIGHT:
-#             self.move(self.rect.x, self.rect.y + step)
-#         print(2)
-#
-#     def on_event(self, event: pygame.event) -> None:
-#         if event.type == pygame.KEYUP:
-#             self.is_move = False
-#             self.direction = False
-#             print('KEYUP')
-#         if event.type != pygame.KEYDOWN:
-#             print('KEYDOWN')
-#             return
-#         if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]:
-#             self.is_move = True
-#             self.direction = event.key
-#             print('K_RIGHT')
+class Bullet(Sprite):
+    sprite = pygame.image.load('hero/hero_stay/normal/зеленый_снаряд1.png')
 
+    def __init__(self, parent, x, y, dx, dy, group):
+        super().__init__(x, y)
+        self.image = self.__class__.sprite
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.dx, self.dy = dx, dy
+        self.parent = parent
+        self.group = group
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy

@@ -3,7 +3,7 @@ from Map import TiledMap
 
 
 class Hero(Sprite):
-    sprite = pygame.image.load('hero/hero_stay/i1.png')
+    sprite = pygame.image.load('hero/hero_stay/normal/i1.png')
 
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y)
@@ -16,7 +16,7 @@ class Hero(Sprite):
         self.sprite.rect.x = 55
         self.sprite.rect.y = 190
         self.mode_hero = None
-        self.map = TiledMap(level_map1)
+        self.map = TiledMap(level_map)
 
     def move(self, x: int, y: int):
         old_x = self.rect.x

@@ -18,7 +18,7 @@ pygame.display.set_caption('Great way')
 size = WIDTH, HEIGHT = (992, 640)
 screen = pygame.display.set_mode(size)
 
-manager = pygame_gui.UIManager((1100, 590))
+manager = pygame_gui.UIManager((1100, 640))
 clock = pygame.time.Clock()
 pygame.mixer.music.load('./music/m.mp3')
 pygame.mixer.music.play(-1)
@@ -32,7 +32,7 @@ win = pygame.mixer.Sound('music/win.mp3')
 win.set_volume(0.03)
 
 
-with open('ind_zone/wall.txt', mode='r') as file:
+with open('ind_zone/map1.txt', mode='r') as file:
     level_map1 = [line.strip() for line in file]
 
 
