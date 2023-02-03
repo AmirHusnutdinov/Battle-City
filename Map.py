@@ -163,10 +163,7 @@ class Hero(Sprite):
                 return
 
     def check_hit(self):
-        booms = [pygame.image.load('hero/hero_stay/normal/взрыв1.png'),
-                 pygame.image.load('hero/hero_stay/normal/взрыв2.png'),
-                 pygame.image.load('hero/hero_stay/normal/взрыв3.png'),
-                 pygame.image.load('hero/hero_stay/normal/взрыв4.png')]
+        booms = [pygame.image.load('hero/hero_stay/normal/взрыв4.png')]
 
         for box in self.boxes.sprites():
             for bull in self.bullets.sprites():
@@ -210,7 +207,6 @@ class Hero(Sprite):
                 self.is_move = True
                 self.direction = event.key
             if event.key == pygame.K_RCTRL:
-                print('1')
                 self.ishot = True
 
 
