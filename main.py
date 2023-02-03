@@ -6,23 +6,23 @@ from Map import TiledMap, AnimatedThings
 from Map import Hero
 from Win_or__Lose import WinOrLose
 
+
 mode = 'main'
 running = True
-timer = 0
 win_or_lose = WinOrLose(screen, mode)
 industrial_zone = TiledMap(level_map1)
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
-press1, press2 = AnimatedThings(492, 254, 4), AnimatedThings(399, 158, 4)
-img1 = pygame.image.load(f'ind_zone/animated_things/hummer/h1.png')
-rect1 = img1.get_rect(
-            bottomright=(525, 285))
-rect2 = img1.get_rect(
-            bottomright=(430, 190))
+press1, press2 = AnimatedThings(322, 417, 4), AnimatedThings(417, 417, 4)
+scan1, scan2, scan3, scan4 = AnimatedThings(130, 419, 1), AnimatedThings(898, 386, 1), \
+    AnimatedThings(1794, 353, 1), AnimatedThings(2179, 321, 1)
+screen1 = AnimatedThings(641, 450, 2)
+conveer1, conveer2, conveer3 = AnimatedThings(225, 481, 3), AnimatedThings(323, 481, 3), AnimatedThings(418, 481, 3)
 
 while running:
     time_delta = clock.tick(FPS) / 1000
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             confirmation_dialog.open_confirmation_dialog()
@@ -58,7 +58,7 @@ while running:
     elif start_page.rule_btn.check_pressed():
         mode = 'rules'
         btn_sound.play()
-
+        
         start_page.start_btn.hide()
         start_page.rule_btn.hide()
         start_page.choose_level.hide()
@@ -104,18 +104,16 @@ while running:
     elif mode == 'start':
         industrial_zone.render(screen)
         industrial_zone.update()
-
-        if timer > 25:
-            press1.render()
-            press2.render()
-            if timer > 50:
-                timer = 0
-            else:
-                timer += 1
-        else:
-            screen.blit(img1, rect1)
-            screen.blit(img1, rect2)
-            timer += 1
+        press1.render()
+        press2.render()
+        scan1.render()
+        scan2.render()
+        scan3.render()
+        scan4.render()
+        screen1.render()
+        conveer1.render()
+        conveer2.render()
+        conveer3.render()
 
     elif mode == 'pause':
         industrial_zone.render(screen)
