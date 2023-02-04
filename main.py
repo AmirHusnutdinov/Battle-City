@@ -1,3 +1,5 @@
+import pygame
+
 from settings import *
 from StartPage import StartPage
 from confirmation_dialog import ConfirmationDialog
@@ -7,18 +9,12 @@ from Win_or__Lose import WinOrLose
 
 mode = 'main'
 running = True
-timer = 0
 win_or_lose = WinOrLose(screen, mode)
 industrial_zone = TiledMap(level_map1)
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
-press1, press2 = AnimatedThings(492, 254, 4), AnimatedThings(399, 158, 4)
-img1 = pygame.image.load(f'sprites_map/animated_things/hummer/h1.png')
-rect1 = img1.get_rect(
-            bottomright=(525, 285))
-rect2 = img1.get_rect(
-            bottomright=(430, 190))
+
 
 while running:
     time_delta = clock.tick(FPS) / 1000
@@ -28,6 +24,10 @@ while running:
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
             btn_sound.play()
             running = False
+        if event.type == pygame.USEREVENT:
+            pass
+        elif event.type == pygame.USEREVENT + 1:
+            pass
         industrial_zone.on_event(event, mode)
         manager.process_events(event)
     manager.update(time_delta)
@@ -111,18 +111,6 @@ while running:
     elif mode == 'start':
         industrial_zone.render(screen)
         industrial_zone.update()
-
-        if timer > 25:
-            press1.render()
-            press2.render()
-            if timer > 50:
-                timer = 0
-            else:
-                timer += 1
-        else:
-            screen.blit(img1, rect1)
-            screen.blit(img1, rect2)
-            timer += 1
 
     elif mode == 'pause':
         industrial_zone.render(screen)

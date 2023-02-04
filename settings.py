@@ -25,7 +25,7 @@ btn_sound = pygame.mixer.Sound('music/btn.mp3')
 btn_sound.set_volume(0)
 
 
-with open('sprites_map/map1.txt', mode='r') as file:
+with open('sprites_map/map2.txt', mode='r') as file:
     level_map1 = [line.strip() for line in file]
 
 

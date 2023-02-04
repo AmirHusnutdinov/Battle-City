@@ -30,6 +30,8 @@ dict_wall = {'6': 'IndustrialTile_03.png',
 class TiledMap:
 
     def __init__(self, filename: list) -> None:
+        self.timer = 0
+
         self.Tank1 = None
         self.Tank2 = None
         self.pause_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((880, 0, 100, 32)),
@@ -76,6 +78,7 @@ class TiledMap:
             self.all_sprites.add(self.Tank2)
             self.tank2_group.add(self.Tank2)
             self.Tank2.set_boxes(boxes, self.tank1_group)
+        # self.press1, self.press2 = AnimatedThings(492, 254, 4), AnimatedThings(399, 158, 4)
 
     def render(self, surf: Surface) -> None:
         image = pygame.image.load('sprites_map/Backgroundnew.png')
@@ -83,6 +86,21 @@ class TiledMap:
         self.back_to_menu.hide()
         self.cansel.hide()
         pygame.draw.rect(surf, 'black', (978, 18, 104, 54), 4, 10)
+        #
+        # if self.timer > 25:
+        #     self.press1.render()
+        #     self.press2.render()
+        #     if self.timer > 50:
+        #         self.timer = 0
+        #     else:
+        #         self.timer += 1
+        # else:
+        #     img1 = pygame.image.load(f'sprites_map/animated_things/hummer/h1.png')
+        #     rect1 = img1.get_rect()
+        #     rect2 = img1.get_rect()
+        #     screen.blit(img1, rect1)
+        #     screen.blit(img1, rect2)
+        #     self.timer += 1
 
     def update(self) -> None:
         self.all_sprites.draw(screen)
@@ -126,7 +144,6 @@ class AnimatedThings:
 
         self.items = (os.listdir(f'{os.path.abspath(f"sprites_map/animated_things/{self.name_of_folder}")}'))
         for i in range(len(self.items)):
-            print(f'sprites_map/animated_things/{self.name_of_folder}/{self.items[i]}')
             self.things.append(pygame.image.load(f'sprites_map/animated_things/{self.name_of_folder}/{self.items[i]}'))
 
     def render(self) -> None:
@@ -209,8 +226,8 @@ class Tank2(Sprite):
         for box in self.boxes.sprites():
             for bull in self.bullets.sprites():
                 if pygame.sprite.collide_mask(box, bull):
-                    x = box.rect.x
-                    y = box.rect.y
+                    x = bull.rect.x
+                    y = bull.rect.y
                     for i in booms:
                         rect = i.get_rect(bottomright=(x + 32, y + 32))
                         screen.blit(i, rect)
@@ -219,7 +236,7 @@ class Tank2(Sprite):
         for i in self.bullets.sprites():
             for j in self.tank_group:
                 if pygame.sprite.collide_mask(i, j):
-                    print('tank2 kill!!!')
+                    tank2_kill = pygame.USEREVENT
                     pygame.sprite.spritecollide(j, self.bullets, True)
 
     def update(self, *args, **kwargs):
@@ -345,8 +362,8 @@ class Tank1(Sprite):
         for box in self.boxes.sprites():
             for bull in self.bullets.sprites():
                 if pygame.sprite.collide_mask(box, bull):
-                    x = box.rect.x
-                    y = box.rect.y
+                    x = bull.rect.x
+                    y = bull.rect.y
                     pygame.sprite.spritecollide(box, self.bullets, True)
                     for i in booms:
                         rect = i.get_rect(bottomright=(x + 32, y + 32))
@@ -354,7 +371,7 @@ class Tank1(Sprite):
         for i in self.bullets.sprites():
             for j in self.tank_group:
                 if pygame.sprite.collide_mask(i, j):
-                    print('tank1 kill!!!')
+                    tank1_kill = pygame.USEREVENT + 1
                     pygame.sprite.spritecollide(j, self.bullets, True)
 
     def update(self, *args, **kwargs):
