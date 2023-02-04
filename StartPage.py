@@ -3,6 +3,10 @@ from settings import *
 
 class StartPage:
     def __init__(self) -> None:
+
+        self.sound_of_music = 0
+        self.sound_of_effects = 0
+
         self.backgrounds_lst = []
         self.position = 0
         self.last_im = None
@@ -10,7 +14,11 @@ class StartPage:
         self.coordinates = []
         self.pict = None
         self.graf = None
+        self.x1 = 440
+        self.x2 = 440
+        self.x3 = 440
         self.backgrounds = (os.listdir(f'{os.path.abspath("BackGrounds")}'))
+        self.back_of_settings = pygame.image.load('data/settings.png')
 
         for i in self.backgrounds:
             self.backgrounds_lst.append(pygame.image.load(f'BackGrounds/{i}'))
@@ -30,8 +38,40 @@ class StartPage:
 
         self.rule_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((660, 275), (150, 50)),
                                                      text='Rules',
-                                                     tool_tip_text='Откроет правилила игры',
+                                                     tool_tip_text='Правилила игры',
                                                      manager=manager)
+
+        self.settings_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((820, 20), (150, 50)),
+                                                     text='Settings',
+                                                     tool_tip_text='Настройки',
+                                                     manager=manager)
+
+        self.minus1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 250), (40, 40)),
+                                                         text='-',
+                                                         manager=manager)
+        self.minus1.hide()
+        self.plus1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((900, 250), (40, 40)),
+                                                   text='+',
+                                                   manager=manager)
+        self.plus1.hide()
+
+        self.minus2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 375), (40, 40)),
+                                                   text='-',
+                                                   manager=manager)
+        self.minus2.hide()
+        self.plus2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((900, 375), (40, 40)),
+                                                  text='+',
+                                                  manager=manager)
+        self.plus2.hide()
+
+        self.minus3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 495), (40, 40)),
+                                                   text='-',
+                                                   manager=manager)
+        self.minus3.hide()
+        self.plus3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((900, 495), (40, 40)),
+                                                  text='+',
+                                                  manager=manager)
+        self.plus3.hide()
 
     def render_back(self, surf: Surface) -> None:
 
@@ -55,10 +95,11 @@ class StartPage:
                          (458, 273, 155, 65), 10, 10)
         pygame.draw.rect(surf, 'grey', (658, 273, 155, 55), 10, 10)
         pygame.draw.rect(surf, 'grey', (253, 273, 170, 55), 10, 10)
+        pygame.draw.rect(surf, 'grey', (815, 18, 160, 55), 10, 10)
 
         self.graffiti = (os.listdir(f'{os.path.abspath("graffiti")}'))
-        self.coordinates = [(500, 550), (700, 600), (150, 400),
-                            (500, 450), (900, 100), (300, 150),
+        self.coordinates = [(200, 550), (700, 600), (150, 400),
+                            (500, 450), (800, 200), (300, 150),
                             (960, 300), (600, 100), (980, 500),
                             (260, 440), (660, 250)]
 
@@ -69,3 +110,50 @@ class StartPage:
         self.start_btn.show()
         self.rule_btn.show()
         self.choose_level.show()
+
+    def render_settings(self):
+        screen.blit(self.back_of_settings, (0, 0))
+        pygame.draw.rect(screen, 'grey', (815, 18, 160, 55), 10, 10)
+
+        pygame.draw.rect(screen, 'grey', (self.x1, 250, 20, 40))
+        pygame.draw.rect(screen, 'grey', (self.x2, 375, 20, 40))
+        pygame.draw.rect(screen, 'grey', (self.x3, 495, 20, 40))
+
+        if self.minus1.check_pressed() and self.x1 > 440:
+            self.x1 -= 10
+            self.sound_of_music -= 0.02272727
+            self.sound_of_effects -= 0.02272727
+            pygame.mixer.music.set_volume(self.sound_of_music)
+            btn_sound.set_volume(self.sound_of_effects)
+
+        if self.plus1.check_pressed() and self.x1 < 880:
+            self.x1 += 10
+            self.sound_of_music += 0.02272727
+            self.sound_of_effects += 0.02272727
+            pygame.mixer.music.set_volume(self.sound_of_music)
+            btn_sound.set_volume(self.sound_of_effects)
+
+        if self.minus2.check_pressed() and self.x2 > 440:
+            self.x2 -= 10
+            self.sound_of_music -= 0.02272727
+            pygame.mixer.music.set_volume(self.sound_of_music)
+
+        if self.plus2.check_pressed() and self.x2 < 880:
+            self.x2 += 10
+            self.sound_of_music += 0.02272727
+            pygame.mixer.music.set_volume(self.sound_of_music)
+
+        if self.minus3.check_pressed() and self.x3 > 440:
+            self.x3 -= 10
+            self.sound_of_effects -= 0.02272727
+            btn_sound.set_volume(self.sound_of_effects)
+
+        if self.plus3.check_pressed() and self.x3 < 880:
+            self.x3 += 10
+            self.sound_of_effects += 0.02272727
+            btn_sound.set_volume(self.sound_of_effects)
+
+
+
+
+

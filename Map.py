@@ -32,7 +32,7 @@ class TiledMap:
     def __init__(self, filename: list) -> None:
         self.Tank1 = None
         self.Tank2 = None
-        self.pause_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((980, 20, 100, 50)),
+        self.pause_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((880, 0, 100, 32)),
                                                       text='Pause',
                                                       manager=manager)
         self.back_to_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((405, 300, 140, 40)),
@@ -96,9 +96,10 @@ class TiledMap:
         pygame.draw.rect(surf, 'black', (403, 299, 144, 43), 10, 4)
         pygame.draw.rect(surf, 'black', (553, 299, 144, 43), 10, 4)
 
-    def on_event(self, event):
-        for sprite in self.all_sprites.sprites():
-            sprite.on_event(event)
+    def on_event(self, event, mode):
+        if mode != 'pause':
+            for sprite in self.all_sprites.sprites():
+                sprite.on_event(event)
 
 
 class AnimatedThings:
@@ -136,7 +137,7 @@ class AnimatedThings:
 
 
 class Tank1(Sprite):
-    sprite = load_image('../hero/all_tank1.png')
+    sprite = load_image('../hero/all_green.png')
 
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -266,7 +267,7 @@ class Tank1(Sprite):
 
 
 class Tank2(Sprite):
-    sprite = load_image('../hero/all_tank2.png')
+    sprite = load_image('../hero/all_red.png')
 
     def __init__(self, x, y):
         super().__init__(x, y)

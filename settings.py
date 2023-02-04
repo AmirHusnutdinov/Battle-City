@@ -19,14 +19,10 @@ manager = pygame_gui.UIManager((1100, 640))
 clock = pygame.time.Clock()
 pygame.mixer.music.load('./music/start.mp3')
 pygame.mixer.music.play(-1)
-
-pygame.mixer.music.set_volume(0.05)
-lose = pygame.mixer.Sound('music/lose.mp3')
-lose.set_volume(0.02)
+pygame.mixer.music.set_volume(0)
 
 btn_sound = pygame.mixer.Sound('music/btn.mp3')
-win = pygame.mixer.Sound('music/win.mp3')
-win.set_volume(0.03)
+btn_sound.set_volume(0)
 
 
 with open('ind_zone/map1.txt', mode='r') as file:
