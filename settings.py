@@ -25,12 +25,12 @@ btn_sound = pygame.mixer.Sound('music/btn.mp3')
 btn_sound.set_volume(0)
 
 
-with open('ind_zone/map1.txt', mode='r') as file:
+with open('sprites_map/map1.txt', mode='r') as file:
     level_map1 = [line.strip() for line in file]
 
 
 def load_image(name):
-    fullname = os.path.join('ind_zone', name)
+    fullname = os.path.join('sprites_map', name)
     if not os.path.isfile(fullname):
         print(f'Файл с изображениями "{fullname}" не найден')
         sys.exit()

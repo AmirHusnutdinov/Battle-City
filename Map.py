@@ -78,7 +78,7 @@ class TiledMap:
             self.Tank2.set_boxes(boxes, self.tank1_group)
 
     def render(self, surf: Surface) -> None:
-        image = pygame.image.load('ind_zone/Backgroundnew.png')
+        image = pygame.image.load('sprites_map/Backgroundnew.png')
         surf.blit(image, (0, 0))
         self.back_to_menu.hide()
         self.cansel.hide()
@@ -124,9 +124,10 @@ class AnimatedThings:
             self.name_of_folder = 'hummer'
             self.count_of_picture = 5
 
-        self.items = (os.listdir(f'{os.path.abspath(f"ind_zone/animated_things/{self.name_of_folder}")}'))
+        self.items = (os.listdir(f'{os.path.abspath(f"sprites_map/animated_things/{self.name_of_folder}")}'))
         for i in range(len(self.items)):
-            self.things.append(pygame.image.load(f'ind_zone/animated_things/{self.name_of_folder}/{self.items[i]}'))
+            print(f'sprites_map/animated_things/{self.name_of_folder}/{self.items[i]}')
+            self.things.append(pygame.image.load(f'sprites_map/animated_things/{self.name_of_folder}/{self.items[i]}'))
 
     def render(self) -> None:
         screen.blit(self.things[self.count], (self.x, self.y))
@@ -136,8 +137,8 @@ class AnimatedThings:
             self.count = 0
 
 
-class Tank1(Sprite):
-    sprite = load_image('../hero/all_green.png')
+class Tank2(Sprite):
+    sprite = load_image('../sprites_objects/all_green.png')
 
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -192,13 +193,18 @@ class Tank1(Sprite):
         if not self.boxes:
             return
         for box in self.boxes.sprites():
-            if pygame.sprite.collide_mask(self, box):
-                self.rect.x = old_x
-                self.rect.y = old_y
-                return
+            for other in self.tank_group.sprites():
+                if pygame.sprite.collide_mask(self, box):
+                    self.rect.x = old_x
+                    self.rect.y = old_y
+                    return
+                if pygame.sprite.collide_mask(self, other):
+                    self.rect.x = old_x
+                    self.rect.y = old_y
+                    return
 
     def check_hit(self):
-        booms = [pygame.image.load('hero/hero_stay/normal/взрыв4.png')]
+        booms = [pygame.image.load('sprites_objects/взрыв4.png')]
 
         for box in self.boxes.sprites():
             for bull in self.bullets.sprites():
@@ -266,8 +272,8 @@ class Tank1(Sprite):
             self.is_shot = True
 
 
-class Tank2(Sprite):
-    sprite = load_image('../hero/all_red.png')
+class Tank1(Sprite):
+    sprite = load_image('../sprites_objects/all_red.png')
 
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -323,13 +329,18 @@ class Tank2(Sprite):
         if not self.boxes:
             return
         for box in self.boxes.sprites():
-            if pygame.sprite.collide_mask(self, box):
-                self.rect.x = old_x
-                self.rect.y = old_y
-                return
+            for other in self.tank_group.sprites():
+                if pygame.sprite.collide_mask(self, box):
+                    self.rect.x = old_x
+                    self.rect.y = old_y
+                    return
+                if pygame.sprite.collide_mask(self, other):
+                    self.rect.x = old_x
+                    self.rect.y = old_y
+                    return
 
     def check_hit(self):
-        booms = [pygame.image.load('hero/hero_stay/normal/взрыв4.png')]
+        booms = [pygame.image.load('sprites_objects/взрыв4.png')]
 
         for box in self.boxes.sprites():
             for bull in self.bullets.sprites():
@@ -398,7 +409,7 @@ class Tank2(Sprite):
 
 
 class Bullet1(Sprite):
-    sprite = pygame.image.load('./hero/hero_stay/normal/зеленый_снаряд1.png')
+    sprite = pygame.image.load('sprites_objects/зеленый_снаряд1.png')
 
     def __init__(self, parent, x, y, dx, dy):
         super().__init__(x, y)
@@ -414,7 +425,7 @@ class Bullet1(Sprite):
 
 
 class Bullet2(Sprite):
-    sprite = pygame.image.load('./hero/hero_stay/normal/красный_снаряд1.png')
+    sprite = pygame.image.load('sprites_objects/красный_снаряд1.png')
 
     def __init__(self, parent, x, y, dx, dy):
         super().__init__(x, y)
