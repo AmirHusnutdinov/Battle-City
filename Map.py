@@ -55,7 +55,6 @@ class TiledMap:
         for i in range(rows):
             for ix, value in enumerate(self.floor_layer[i]):
                 if value in dict_wall.keys() or value == '@' or value == '#':
-                    print(value)
                     if value != '@' and value != '#':
                         self.all_sprites.add(Cell(ix * SPRITE, i * SPRITE, f'{dict_wall[value]}'))
                     else:
