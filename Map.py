@@ -26,6 +26,8 @@ dict_wall = {'6': 'IndustrialTile_03.png',
              'a': 'IndustrialTile_10.png',
              's': 'IndustrialTile_38.png'}
 
+kill_info = None
+
 
 class TiledMap:
 
@@ -221,6 +223,7 @@ class Tank2(Sprite):
                     return
 
     def check_hit(self):
+        global kill_info
         booms = [pygame.image.load('sprites_objects/взрыв4.png')]
 
         for box in self.boxes.sprites():
@@ -236,8 +239,8 @@ class Tank2(Sprite):
         for i in self.bullets.sprites():
             for j in self.tank_group:
                 if pygame.sprite.collide_mask(i, j):
-                    tank2_kill = pygame.USEREVENT
                     pygame.sprite.spritecollide(j, self.bullets, True)
+                    kill_info = 'red kill'
 
     def update(self, *args, **kwargs):
         if self.is_shot and self.shotTimer == 0:
@@ -371,8 +374,10 @@ class Tank1(Sprite):
         for i in self.bullets.sprites():
             for j in self.tank_group:
                 if pygame.sprite.collide_mask(i, j):
-                    tank1_kill = pygame.USEREVENT + 1
                     pygame.sprite.spritecollide(j, self.bullets, True)
+                    global kill_info
+                    kill_info = 'green kill'
+
 
     def update(self, *args, **kwargs):
         if self.is_shot and self.shotTimer == 0:

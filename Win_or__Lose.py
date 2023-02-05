@@ -22,8 +22,8 @@ class WinOrLose:
 
         if mode == 'death':
             self.image = pygame.image.load('data/game_over.png')
-        elif mode == 'win':
-            self.image = pygame.image.load('data/passed.png')
+        elif mode == 'green win':
+            self.image = pygame.image.load('data/green_win.png')
 
         self.surf.blit(self.image, (self.x, self.y))
         color = (255, random.randrange(1, 256), random.randrange(1, 256))
@@ -41,12 +41,11 @@ class WinOrLose:
             self.y2 -= FPS // 2
             self.restart.show()
 
-        if mode == 'win':
-            self.creating_particles()
+        self.creating_particles()
 
     def creating_particles(self) -> None:
         for i in range(100):
             pygame.draw.rect(self.surf, (random.randrange(1, 256), random.randrange(1, 256), random.randrange(1, 256)),
-                             (random.randrange(150, 250), random.randrange(145, 600), 5, 10))
+                             (random.randrange(20, 120), random.randrange(145, 640), 5, 10))
             pygame.draw.rect(self.surf, (random.randrange(1, 256), random.randrange(1, 256), random.randrange(1, 256)),
-                             (random.randrange(900, 1000), random.randrange(145, 600), 5, 10))
+                             (random.randrange(872, 972), random.randrange(125, 640), 5, 10))

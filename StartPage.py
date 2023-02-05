@@ -1,3 +1,5 @@
+import pygame.image
+
 from settings import *
 
 
@@ -97,16 +99,10 @@ class StartPage:
         pygame.draw.rect(surf, 'grey', (253, 273, 170, 55), 10, 10)
         pygame.draw.rect(surf, 'grey', (815, 18, 160, 55), 10, 10)
 
-        self.graffiti = (os.listdir(f'{os.path.abspath("graffiti")}'))
-        self.coordinates = [(200, 550), (700, 600), (150, 400),
-                            (500, 450), (800, 200), (300, 150),
-                            (960, 300), (600, 100), (980, 500),
-                            (260, 440), (660, 250)]
+        pict2 = pygame.image.load('data/start_page.png')
+        graf2 = pict2.get_rect(bottomright=(1000, 640))
+        surf.blit(pict2, graf2)
 
-        for i in range(len(self.graffiti)):
-            self.pict = pygame.image.load(f'graffiti/{self.graffiti[i]}')
-            self.graf = self.pict.get_rect(bottomright=(self.coordinates[i]))
-            surf.blit(self.pict, self.graf)
         self.start_btn.show()
         self.rule_btn.show()
         self.choose_level.show()

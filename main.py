@@ -1,5 +1,3 @@
-import pygame
-
 from settings import *
 from StartPage import StartPage
 from confirmation_dialog import ConfirmationDialog
@@ -9,6 +7,7 @@ from Win_or__Lose import WinOrLose
 
 mode = 'main'
 running = True
+
 win_or_lose = WinOrLose(screen, mode)
 industrial_zone = TiledMap(level_map1)
 rules = Rules()
@@ -32,9 +31,11 @@ while running:
         manager.process_events(event)
     manager.update(time_delta)
     industrial_zone.update()
+    from Map import kill_info
     if start_page.start_btn.check_pressed() or \
             industrial_zone.cansel.check_pressed() or win_or_lose.restart.check_pressed():
         mode = 'start'
+        kill_info = None
         pygame.mixer.music.unpause()
         win_or_lose.x = 0
         win_or_lose.y = -600
@@ -84,6 +85,7 @@ while running:
     elif industrial_zone.back_to_menu.check_pressed() or \
             rules.back_btn.check_pressed() or win_or_lose.menu.check_pressed():
         mode = 'main'
+        kill_info = None
         pygame.mixer.music.unpause()
         win_or_lose.restart.hide()
         win_or_lose.menu.hide()
@@ -96,6 +98,13 @@ while running:
         start_page.minus3.hide()
         start_page.plus3.hide()
         start_page.settings_btn.show()
+
+    elif kill_info is not None:
+        if kill_info == 'green kill':
+            mode = 'red win'
+        else:
+            industrial_zone.pause_btn.hide()
+            mode = 'green win'
 
     start_page.render_back(screen)
 
@@ -115,16 +124,21 @@ while running:
     elif mode == 'pause':
         industrial_zone.render(screen)
         industrial_zone.update()
-        screen.blit(img1, rect1)
-        screen.blit(img1, rect2)
+        #screen.blit(img1, rect1)
+        #screen.blit(img1, rect2)
         industrial_zone.open_pause(screen)
 
     elif mode == 'death' or mode == 'win':
         industrial_zone.render(screen)
         industrial_zone.pause_btn.hide()
         win_or_lose.render(mode)
+
     elif mode == 'settings':
         start_page.render_settings()
+
+    elif mode == 'green win':
+        win_or_lose.render(mode)
+
     manager.draw_ui(screen)
     clock.tick(FPS)
     pygame.display.flip()
