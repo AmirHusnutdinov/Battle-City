@@ -17,6 +17,7 @@ screen = pygame.display.set_mode(size)
 
 manager = pygame_gui.UIManager((1100, 640))
 clock = pygame.time.Clock()
+
 pygame.mixer.music.load('./music/start.mp3')
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0)
@@ -24,9 +25,11 @@ pygame.mixer.music.set_volume(0)
 btn_sound = pygame.mixer.Sound('music/btn.mp3')
 btn_sound.set_volume(0)
 
+win_sound = pygame.mixer.Sound('music/win.mp3')
+win_sound.set_volume(0)
 
-with open('sprites_map/map2.txt', mode='r') as file:
-    level_map1 = [line.strip() for line in file]
+shoot_sound = pygame.mixer.Sound('music/shoot.mp3')
+shoot_sound.set_volume(0)
 
 
 def load_image(name):

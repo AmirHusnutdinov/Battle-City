@@ -2,18 +2,19 @@ from settings import *
 from StartPage import StartPage
 from confirmation_dialog import ConfirmationDialog
 from rules import Rules
-from Map import TiledMap, AnimatedThings
+from Map import TiledMap
 from Win_or__Lose import WinOrLose
 
 mode = 'main'
 running = True
 
-win_or_lose = WinOrLose(screen, mode)
+with open(f'sprites_map/map1.txt', mode='r') as file:
+    level_map1 = [line.strip() for line in file]
 industrial_zone = TiledMap(level_map1)
+win_or_lose = WinOrLose(screen, mode)
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
-
 
 while running:
     time_delta = clock.tick(FPS) / 1000
@@ -23,10 +24,16 @@ while running:
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
             btn_sound.play()
             running = False
-        if event.type == pygame.USEREVENT:
-            pass
-        elif event.type == pygame.USEREVENT + 1:
-            pass
+
+        if event.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+            if event.text == 'Industrial Zone 1':
+                name_of_map = '1'
+            else:
+                name_of_map = '2'
+            with open(f'sprites_map/map{name_of_map}.txt', mode='r') as file:
+                level_map1 = [line.strip() for line in file]
+                industrial_zone = TiledMap(level_map1)
+
         industrial_zone.on_event(event, mode)
         manager.process_events(event)
     manager.update(time_delta)
@@ -35,6 +42,9 @@ while running:
     if start_page.start_btn.check_pressed() or \
             industrial_zone.cansel.check_pressed() or win_or_lose.restart.check_pressed():
         mode = 'start'
+        pygame.mixer.music.load('./music/motor.mp3')
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(start_page.sound_of_effects)
         kill_info = None
         pygame.mixer.music.unpause()
         win_or_lose.x = 0
@@ -85,6 +95,9 @@ while running:
     elif industrial_zone.back_to_menu.check_pressed() or \
             rules.back_btn.check_pressed() or win_or_lose.menu.check_pressed():
         mode = 'main'
+        pygame.mixer.music.load('./music/start.mp3')
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(start_page.sound_of_music)
         kill_info = None
         pygame.mixer.music.unpause()
         win_or_lose.restart.hide()
@@ -99,12 +112,15 @@ while running:
         start_page.plus3.hide()
         start_page.settings_btn.show()
 
-    elif kill_info is not None:
-        if kill_info == 'green kill':
-            mode = 'red win'
-        else:
-            industrial_zone.pause_btn.hide()
-            mode = 'green win'
+    if kill_info == 'green kill':
+        mode = 'red win'
+        pygame.mixer.music.pause()
+        industrial_zone.pause_btn.hide()
+
+    elif kill_info == 'red kill':
+        pygame.mixer.music.pause()
+        mode = 'green win'
+        industrial_zone.pause_btn.hide()
 
     start_page.render_back(screen)
 
@@ -138,6 +154,11 @@ while running:
 
     elif mode == 'green win':
         win_or_lose.render(mode)
+        win_sound.play()
+
+    elif mode == 'red win':
+        win_or_lose.render(mode)
+        win_sound.play()
 
     manager.draw_ui(screen)
     clock.tick(FPS)

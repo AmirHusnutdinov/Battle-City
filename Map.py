@@ -120,6 +120,9 @@ class TiledMap:
         if mode != 'pause':
             for sprite in self.all_sprites.sprites():
                 sprite.on_event(event)
+        if mode == 'start' or mode == 'main':
+            global kill_info
+            kill_info = None
 
 
 class AnimatedThings:
@@ -245,12 +248,16 @@ class Tank2(Sprite):
     def update(self, *args, **kwargs):
         if self.is_shot and self.shotTimer == 0:
             if self.side == 1:
+                shoot_sound.play()
                 self.bullets.add(Bullet1(self, self.rect.x, self.rect.y, -10, 0))
             if self.side == 3:
+                shoot_sound.play()
                 self.bullets.add(Bullet1(self, self.rect.x, self.rect.y, 10, 0))
             if self.side == 2:
+                shoot_sound.play()
                 self.bullets.add(Bullet1(self, self.rect.x, self.rect.y, 0, -10))
             if self.side == 4:
+                shoot_sound.play()
                 self.bullets.add(Bullet1(self, self.rect.x, self.rect.y, 0, 10))
             self.shotTimer = self.shotDelay
         self.bullets.draw(screen)
@@ -361,7 +368,6 @@ class Tank1(Sprite):
 
     def check_hit(self):
         booms = [pygame.image.load('sprites_objects/взрыв4.png')]
-
         for box in self.boxes.sprites():
             for bull in self.bullets.sprites():
                 if pygame.sprite.collide_mask(box, bull):
@@ -378,16 +384,19 @@ class Tank1(Sprite):
                     global kill_info
                     kill_info = 'green kill'
 
-
     def update(self, *args, **kwargs):
         if self.is_shot and self.shotTimer == 0:
             if self.side == 1:
                 self.bullets.add(Bullet2(self, self.rect.x, self.rect.y, -10, 0))
+                shoot_sound.play()
             if self.side == 3:
+                shoot_sound.play()
                 self.bullets.add(Bullet2(self, self.rect.x, self.rect.y, 10, 0))
             if self.side == 2:
+                shoot_sound.play()
                 self.bullets.add(Bullet2(self, self.rect.x, self.rect.y, 0, -10))
             if self.side == 4:
+                shoot_sound.play()
                 self.bullets.add(Bullet2(self, self.rect.x, self.rect.y, 0, 10))
             self.shotTimer = self.shotDelay
         self.bullets.draw(screen)

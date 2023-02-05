@@ -121,6 +121,8 @@ class StartPage:
             self.sound_of_effects -= 0.02272727
             pygame.mixer.music.set_volume(self.sound_of_music)
             btn_sound.set_volume(self.sound_of_effects)
+            win_sound.set_volume(self.sound_of_effects)
+            shoot_sound.set_volume(self.sound_of_effects)
 
         if self.plus1.check_pressed() and self.x1 < 880:
             self.x1 += 10
@@ -128,6 +130,8 @@ class StartPage:
             self.sound_of_effects += 0.02272727
             pygame.mixer.music.set_volume(self.sound_of_music)
             btn_sound.set_volume(self.sound_of_effects)
+            win_sound.set_volume(self.sound_of_effects)
+            shoot_sound.set_volume(self.sound_of_effects)
 
         if self.minus2.check_pressed() and self.x2 > 440:
             self.x2 -= 10
@@ -143,13 +147,12 @@ class StartPage:
             self.x3 -= 10
             self.sound_of_effects -= 0.02272727
             btn_sound.set_volume(self.sound_of_effects)
+            win_sound.set_volume(self.sound_of_effects)
+            shoot_sound.set_volume(self.sound_of_effects)
 
         if self.plus3.check_pressed() and self.x3 < 880:
             self.x3 += 10
             self.sound_of_effects += 0.02272727
             btn_sound.set_volume(self.sound_of_effects)
-
-
-
-
-
+            win_sound.set_volume(self.sound_of_effects)
+            shoot_sound.set_volume(self.sound_of_effects)
