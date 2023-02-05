@@ -11,7 +11,7 @@ FPS = 50
 shift_of_map = 0
 
 pygame.init()
-pygame.display.set_caption('Great way')
+pygame.display.set_caption('Battle City')
 size = WIDTH, HEIGHT = (992, 640)
 screen = pygame.display.set_mode(size)
 

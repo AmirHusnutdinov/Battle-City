@@ -54,7 +54,7 @@ while running:
         win_or_lose.menu.hide()
         start_page.settings_btn.hide()
         btn_sound.play()
-
+        industrial_zone = TiledMap(level_map1)
         industrial_zone.cansel.hide()
         industrial_zone.pause_btn.hide()
         industrial_zone.back_to_menu.hide()
