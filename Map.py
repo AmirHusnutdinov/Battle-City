@@ -104,6 +104,10 @@ class TiledMap:
         pygame.draw.rect(surf, 'black', (403, 299, 144, 43), 10, 4)
         pygame.draw.rect(surf, 'black', (553, 299, 144, 43), 10, 4)
 
+    def close_pause(self, surf: Surface) -> None:
+        self.back_to_menu.hide()
+        self.cansel.hide()
+
     def on_event(self, event, mode):
         if mode != 'pause':
             for sprite in self.all_sprites.sprites():
