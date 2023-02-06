@@ -10,52 +10,78 @@ running = True
 
 with open(f'sprites_map/map1.txt', mode='r') as file:
     level_map1 = [line.strip() for line in file]
+
 industrial_zone = TiledMap(level_map1)
 win_or_lose = WinOrLose(screen, mode)
 rules = Rules()
 start_page = StartPage()
 confirmation_dialog = ConfirmationDialog()
 
+
+def hide_start_page_btn() -> None:
+    start_page.settings_btn.hide()
+    start_page.start_btn.hide()
+    start_page.rule_btn.hide()
+    start_page.choose_level.hide()
+
+
 while running:
+
     time_delta = clock.tick(FPS) / 1000
+
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             confirmation_dialog.open_confirmation_dialog()
+
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
             btn_sound.play()
             running = False
 
         if event.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+
             if event.text == 'Industrial Zone 1':
                 name_of_map = '1'
+
             else:
                 name_of_map = '2'
+
             with open(f'sprites_map/map{name_of_map}.txt', mode='r') as file:
                 level_map1 = [line.strip() for line in file]
                 industrial_zone = TiledMap(level_map1)
 
         industrial_zone.on_event(event, mode)
         manager.process_events(event)
+
     manager.update(time_delta)
     industrial_zone.update()
     from Map import kill_info
+
     if start_page.start_btn.check_pressed() or \
-            industrial_zone.cansel.check_pressed() or win_or_lose.restart.check_pressed():
+            industrial_zone.cansel.check_pressed() or\
+            win_or_lose.restart.check_pressed():
+
         mode = 'start'
+        kill_info = None
+
         pygame.mixer.music.load('./music/motor.mp3')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(start_page.sound_of_effects)
-        kill_info = None
         pygame.mixer.music.unpause()
+        btn_sound.play()
+
         win_or_lose.x = 0
         win_or_lose.y = -600
         win_or_lose.y1 = win_or_lose.y2 = 700
         win_or_lose.restart.hide()
         win_or_lose.menu.hide()
+
         start_page.settings_btn.hide()
-        btn_sound.play()
-        if start_page.start_btn.check_pressed() or win_or_lose.restart.check_pressed():
+
+        if start_page.start_btn.check_pressed() \
+                or win_or_lose.restart.check_pressed():
             industrial_zone = TiledMap(level_map1)
+
         industrial_zone.cansel.hide()
         industrial_zone.pause_btn.hide()
         industrial_zone.back_to_menu.hide()
@@ -68,25 +94,21 @@ while running:
     elif start_page.rule_btn.check_pressed():
         mode = 'rules'
         btn_sound.play()
-        start_page.settings_btn.hide()
-        start_page.start_btn.hide()
-        start_page.rule_btn.hide()
-        start_page.choose_level.hide()
+        hide_start_page_btn()
 
     elif start_page.settings_btn.check_pressed():
         mode = 'settings'
-        start_page.start_btn.hide()
-        start_page.rule_btn.hide()
-        start_page.choose_level.hide()
-        start_page.settings_btn.hide()
-        rules.back_btn.show()
+        hide_start_page_btn()
+
         start_page.minus1.show()
         start_page.plus1.show()
         start_page.minus2.show()
         start_page.plus2.show()
         start_page.minus3.show()
         start_page.plus3.show()
+
         btn_sound.play()
+        rules.back_btn.show()
 
     elif industrial_zone.pause_btn.check_pressed():
         pygame.mixer.music.pause()
@@ -96,15 +118,19 @@ while running:
     elif industrial_zone.back_to_menu.check_pressed() or \
             rules.back_btn.check_pressed() or win_or_lose.menu.check_pressed():
         mode = 'main'
+        kill_info = None
+
         pygame.mixer.music.load('./music/start.mp3')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(start_page.sound_of_music)
-        kill_info = None
         pygame.mixer.music.unpause()
+        btn_sound.play()
+
         win_or_lose.restart.hide()
         win_or_lose.menu.hide()
+
         rules.back_btn.hide()
-        btn_sound.play()
+
         start_page.minus1.hide()
         start_page.plus1.hide()
         start_page.minus2.hide()
@@ -127,6 +153,7 @@ while running:
 
     if mode == 'main':
         start_page.render_front(screen)
+
         industrial_zone.cansel.hide()
         industrial_zone.pause_btn.hide()
         industrial_zone.back_to_menu.hide()
@@ -134,16 +161,11 @@ while running:
     elif mode == 'rules':
         rules.render(screen)
 
-    elif mode == 'start':
+    elif mode == 'start' or mode == 'pause':
         industrial_zone.render(screen)
         industrial_zone.update()
-
-    elif mode == 'pause':
-        industrial_zone.render(screen)
-        industrial_zone.update()
-        #screen.blit(img1, rect1)
-        #screen.blit(img1, rect2)
-        industrial_zone.open_pause(screen)
+        if mode == 'pause':
+            industrial_zone.open_pause(screen)
 
     elif mode == 'death' or mode == 'win':
         industrial_zone.render(screen)

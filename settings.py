@@ -32,11 +32,13 @@ shoot_sound = pygame.mixer.Sound('music/shoot.mp3')
 shoot_sound.set_volume(0)
 
 
-def load_image(name):
+def load_image(name: str) -> pygame.Surface:
     fullname = os.path.join('sprites_map', name)
+
     if not os.path.isfile(fullname):
         print(f'Файл с изображениями "{fullname}" не найден')
         sys.exit()
+
     image = pygame.image.load(fullname)
     return image
 
@@ -46,18 +48,24 @@ class Sprite(pygame.sprite.Sprite):
 
     def __init__(self, x: int, y: int, sprite=None) -> None:
         super().__init__()
+
         if sprite is not None:
             self.image = load_image(sprite)
+
         else:
             self.image = self.__class__.sprite
+
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
         if self.rect.width < SPRITE:
             self.rect.x += (SPRITE - self.rect.width) // 2
+
         if self.rect.height < SPRITE:
             self.rect.y += (SPRITE - self.rect.height) // 2
+
         self.mask = pygame.mask.from_surface(self.image)
 
-    def on_event(self, event):
+    def on_event(self, event: pygame.event) -> None:
         pass

@@ -6,9 +6,11 @@ class WinOrLose:
         self.mode = mode
         self.surf = surf
         self.image = None
+
         self.menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((270, 328, 150, 60)),
                                                  text='Главное меню',
                                                  manager=manager)
+
         self.restart = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((560, 328, 150, 60)),
                                                     text='Начать с начала',
                                                     manager=manager)

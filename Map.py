@@ -35,12 +35,15 @@ class TiledMap:
     def __init__(self, filename: list) -> None:
         self.Tank1 = None
         self.Tank2 = None
+
         self.pause_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((880, 0, 100, 32)),
                                                       text='Pause',
                                                       manager=manager)
+
         self.back_to_menu = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((405, 300, 140, 40)),
                                                          text='Главное меню',
                                                          manager=manager)
+
         self.cansel = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((555, 300, 140, 40)),
                                                    text='Отмена',
                                                    manager=manager)
@@ -104,7 +107,7 @@ class TiledMap:
         pygame.draw.rect(surf, 'black', (403, 299, 144, 43), 10, 4)
         pygame.draw.rect(surf, 'black', (553, 299, 144, 43), 10, 4)
 
-    def on_event(self, event, mode):
+    def on_event(self, event: pygame.event, mode: str) -> None:
         if mode != 'pause':
             for sprite in self.all_sprites.sprites():
                 sprite.on_event(event)
@@ -158,7 +161,7 @@ class Press(pygame.sprite.Sprite):
 class Tank(Sprite):
     sprite = load_image('../sprites_objects/all_green.png')
 
-    def __init__(self, x, y):
+    def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y)
         self.normal = 0
         self.cur_frame = 0
@@ -176,15 +179,17 @@ class Tank(Sprite):
         self.shotDelay = 50
         self.side = 4
 
-    def update_frame(self):
+    def update_frame(self) -> None:
         pass
 
-    def set_boxes(self, boxes: pygame.sprite.Group, tank_group, press_group):
+    def set_boxes(self, boxes: pygame.sprite.Group,
+                  tank_group: pygame.sprite.Group,
+                  press_group: pygame.sprite.Group) -> None:
         self.boxes = boxes
         self.tank_group = tank_group
         self.press_group = press_group
 
-    def move(self, x: int, y: int):
+    def move(self, x: int, y: int) -> None:
         old_x = self.rect.x
         old_y = self.rect.y
         if x < 0 or y < 0:
@@ -206,7 +211,7 @@ class Tank(Sprite):
                     self.rect.y = old_y
                     return
 
-    def check_hit(self):
+    def check_hit(self) -> None:
         booms = [pygame.image.load('sprites_objects/взрыв4.png')]
 
         for box in self.boxes.sprites():
@@ -219,10 +224,10 @@ class Tank(Sprite):
                         screen.blit(i, rect)
                     pygame.sprite.spritecollide(box, self.bullets, True)
 
-    def check_bullets(self):
+    def check_bullets(self) -> None:
         pass
 
-    def update(self, *args, **kwargs):
+    def update(self, *args, **kwargs) -> None:
         pass
 
     def on_event(self, event: pygame.event) -> None:
@@ -232,7 +237,7 @@ class Tank(Sprite):
 class Tank2(Tank):
     sprite = load_image('../sprites_objects/all_green.png')
 
-    def update_frame(self):
+    def update_frame(self) -> None:
         if not self.is_move:
             self.image = self.frames[self.cur_frame]
             self.mask = pygame.mask.from_surface(self.image)
@@ -252,7 +257,7 @@ class Tank2(Tank):
         self.image = self.frames[self.cur_frame]
         self.mask = pygame.mask.from_surface(self.image)
 
-    def check_bullets(self):
+    def check_bullets(self) -> None:
         global kill_info
         for i in self.bullets.sprites():
             for j in self.tank_group:
@@ -262,7 +267,7 @@ class Tank2(Tank):
             if pygame.sprite.collide_mask(press, self):
                 kill_info = 'green kill'
 
-    def update(self, *args, **kwargs):
+    def update(self, *args, **kwargs) -> None:
         if self.is_shot and self.shotTimer == 0:
             if self.side == 1:
                 shoot_sound.play()
@@ -322,7 +327,7 @@ class Tank2(Tank):
 class Tank1(Tank):
     sprite = load_image('../sprites_objects/all_red.png')
 
-    def update_frame(self):
+    def update_frame(self) -> None:
         if not self.is_move:
             self.image = self.frames[self.cur_frame]
             self.mask = pygame.mask.from_surface(self.image)
@@ -342,7 +347,7 @@ class Tank1(Tank):
         self.image = self.frames[self.cur_frame]
         self.mask = pygame.mask.from_surface(self.image)
 
-    def check_bullets(self):
+    def check_bullets(self) -> None:
         global kill_info
         for i in self.bullets.sprites():
             for j in self.tank_group:
@@ -352,7 +357,7 @@ class Tank1(Tank):
             if pygame.sprite.collide_mask(press, self):
                 kill_info = 'red kill'
 
-    def update(self, *args, **kwargs):
+    def update(self, *args, **kwargs) -> None:
         if self.is_shot and self.shotTimer == 0:
             if self.side == 1:
                 shoot_sound.play()
@@ -412,7 +417,7 @@ class Tank1(Tank):
 class Bullet(Sprite):
     sprite = pygame.image.load('sprites_objects/зеленый_снаряд1.png')
 
-    def __init__(self, parent, x, y, dx, dy):
+    def __init__(self, parent, x, y, dx, dy) -> None:
         super().__init__(x, y)
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -420,7 +425,7 @@ class Bullet(Sprite):
         self.dx, self.dy = dx, dy
         self.parent = parent
 
-    def update(self):
+    def update(self) -> None:
         self.rect.x += self.dx
         self.rect.y += self.dy
 

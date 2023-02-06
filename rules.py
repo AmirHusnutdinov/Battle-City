@@ -11,7 +11,9 @@ class Rules:
 
     def render(self, surf: Surface) -> None:
         self.back_btn.show()
+
         pict2 = pygame.image.load('data/rules.png')
         graf2 = pict2.get_rect(bottomright=(1100, 600))
+
         surf.blit(pict2, graf2)
         pygame.draw.rect(surf, 'grey', (815, 18, 160, 55), 10, 10)

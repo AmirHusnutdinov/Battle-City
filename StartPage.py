@@ -12,20 +12,19 @@ class StartPage:
         self.backgrounds_lst = []
         self.position = 0
         self.last_im = None
-        self.graffiti = None
-        self.coordinates = []
-        self.pict = None
-        self.graf = None
+
         self.x1 = 440
         self.x2 = 440
         self.x3 = 440
+
         self.backgrounds = (os.listdir(f'{os.path.abspath("BackGrounds")}'))
         self.back_of_settings = pygame.image.load('data/settings.png')
 
         for i in self.backgrounds:
             self.backgrounds_lst.append(pygame.image.load(f'BackGrounds/{i}'))
 
-        self.image = self.backgrounds_lst[random.randrange(0, len(self.backgrounds_lst))]
+        self.image = self.backgrounds_lst[random.randrange(0,
+                                                           len(self.backgrounds_lst))]
 
         self.choose_level = pygame_gui.elements.ui_drop_down_menu.UIDropDownMenu(
             options_list=['Industrial Zone 1', 'Industrial Zone 2'],
@@ -44,17 +43,17 @@ class StartPage:
                                                      manager=manager)
 
         self.settings_btn = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((820, 20), (150, 50)),
-                                                     text='Settings',
-                                                     tool_tip_text='Настройки',
-                                                     manager=manager)
+                                                         text='Settings',
+                                                         tool_tip_text='Настройки',
+                                                         manager=manager)
 
         self.minus1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 250), (40, 40)),
-                                                         text='-',
-                                                         manager=manager)
+                                                   text='-',
+                                                   manager=manager)
         self.minus1.hide()
         self.plus1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((900, 250), (40, 40)),
-                                                   text='+',
-                                                   manager=manager)
+                                                  text='+',
+                                                  manager=manager)
         self.plus1.hide()
 
         self.minus2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 375), (40, 40)),
@@ -95,6 +94,7 @@ class StartPage:
 
         pygame.draw.rect(surf, (255, random.randrange(1, 256), random.randrange(1, 256)),
                          (458, 273, 155, 65), 10, 10)
+
         pygame.draw.rect(surf, 'grey', (658, 273, 155, 55), 10, 10)
         pygame.draw.rect(surf, 'grey', (253, 273, 170, 55), 10, 10)
         pygame.draw.rect(surf, 'grey', (815, 18, 160, 55), 10, 10)
@@ -107,10 +107,10 @@ class StartPage:
         self.rule_btn.show()
         self.choose_level.show()
 
-    def render_settings(self):
+    def render_settings(self) -> None:
         screen.blit(self.back_of_settings, (0, 0))
-        pygame.draw.rect(screen, 'grey', (815, 18, 160, 55), 10, 10)
 
+        pygame.draw.rect(screen, 'grey', (815, 18, 160, 55), 10, 10)
         pygame.draw.rect(screen, 'grey', (self.x1, 250, 20, 40))
         pygame.draw.rect(screen, 'grey', (self.x2, 375, 20, 40))
         pygame.draw.rect(screen, 'grey', (self.x3, 495, 20, 40))
@@ -119,6 +119,7 @@ class StartPage:
             self.x1 -= 10
             self.sound_of_music -= 0.02272727
             self.sound_of_effects -= 0.02272727
+
             pygame.mixer.music.set_volume(self.sound_of_music)
             btn_sound.set_volume(self.sound_of_effects)
             win_sound.set_volume(self.sound_of_effects)
@@ -128,6 +129,7 @@ class StartPage:
             self.x1 += 10
             self.sound_of_music += 0.02272727
             self.sound_of_effects += 0.02272727
+
             pygame.mixer.music.set_volume(self.sound_of_music)
             btn_sound.set_volume(self.sound_of_effects)
             win_sound.set_volume(self.sound_of_effects)
@@ -136,16 +138,19 @@ class StartPage:
         if self.minus2.check_pressed() and self.x2 > 440:
             self.x2 -= 10
             self.sound_of_music -= 0.02272727
+
             pygame.mixer.music.set_volume(self.sound_of_music)
 
         if self.plus2.check_pressed() and self.x2 < 880:
             self.x2 += 10
             self.sound_of_music += 0.02272727
+
             pygame.mixer.music.set_volume(self.sound_of_music)
 
         if self.minus3.check_pressed() and self.x3 > 440:
             self.x3 -= 10
             self.sound_of_effects -= 0.02272727
+
             btn_sound.set_volume(self.sound_of_effects)
             win_sound.set_volume(self.sound_of_effects)
             shoot_sound.set_volume(self.sound_of_effects)
@@ -153,6 +158,7 @@ class StartPage:
         if self.plus3.check_pressed() and self.x3 < 880:
             self.x3 += 10
             self.sound_of_effects += 0.02272727
+
             btn_sound.set_volume(self.sound_of_effects)
             win_sound.set_volume(self.sound_of_effects)
             shoot_sound.set_volume(self.sound_of_effects)
