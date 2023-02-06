@@ -147,8 +147,8 @@ class Press(pygame.sprite.Sprite):
             else:
                 self.timer += 1
         else:
-            screen.blit(self.things[6], (self.x, self.y))
-            self.image = self.things[6]
+            screen.blit(pygame.image.load('sprites_map/hummer.png'), (self.x, self.y))
+            self.image = pygame.image.load('sprites_map/hummer.png')
             self.rect = self.image.get_rect()
             self.rect.x = self.x
             self.rect.y = self.y
