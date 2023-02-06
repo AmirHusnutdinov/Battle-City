@@ -1,6 +1,7 @@
 import pygame.sprite
 
-from Sprites import Cell, Floors
+from Sprites_for_map import Cell, Floors
+from Sprites_bullet import Bullet1, Bullet2
 from settings import *
 
 dict_floor = {'1': 'IndustrialTile_25.png',
@@ -30,7 +31,7 @@ dict_wall = {'6': 'IndustrialTile_03.png',
 kill_info = None
 
 
-class TiledMap:
+class Map:
 
     def __init__(self, filename: list) -> None:
         self.Tank1 = None
@@ -211,8 +212,8 @@ class Tank(Sprite):
                     self.rect.y = old_y
                     return
 
-    def check_hit(self) -> None:
-        booms = [pygame.image.load('sprites_objects/взрыв4.png')]
+    def check_hit(self):
+        booms = [pygame.image.load('sprites_objects/boom.png')]
 
         for box in self.boxes.sprites():
             for bull in self.bullets.sprites():
@@ -412,27 +413,3 @@ class Tank1(Tank):
                 self.side = 2
         if event.key == pygame.K_q:
             self.is_shot = True
-
-
-class Bullet(Sprite):
-    sprite = pygame.image.load('sprites_objects/зеленый_снаряд1.png')
-
-    def __init__(self, parent, x, y, dx, dy) -> None:
-        super().__init__(x, y)
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.dx, self.dy = dx, dy
-        self.parent = parent
-
-    def update(self) -> None:
-        self.rect.x += self.dx
-        self.rect.y += self.dy
-
-
-class Bullet1(Bullet):
-    sprite = pygame.image.load('sprites_objects/зеленый_снаряд1.png')
-
-
-class Bullet2(Bullet):
-    sprite = pygame.image.load('sprites_objects/красный_снаряд1.png')

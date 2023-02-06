@@ -1,9 +1,10 @@
 # Battle City
 ### Легендарная игра "Танчики" переписанная на язык python
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Python: 3](https://img.shields.io/badge/python-3-blue.svg)](https://www.python.org/)
+
 <details>
   <summary>Скриншоты</summary>
-
 ![Start_page](https://raw.githubusercontent.com/AmirHusnutdinov/Battle-City/back/Screenshots/1.png)
 ![Rules_Page](https://raw.githubusercontent.com/AmirHusnutdinov/Battle-City/back/Screenshots/2.png)
 ![Settings Page](https://raw.githubusercontent.com/AmirHusnutdinov/Battle-City/back/Screenshots/3.png)

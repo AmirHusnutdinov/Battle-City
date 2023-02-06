@@ -2,7 +2,7 @@ from settings import *
 from StartPage import StartPage
 from confirmation_dialog import ConfirmationDialog
 from rules import Rules
-from Map import TiledMap
+from Map import Map
 from Win_or__Lose import WinOrLose
 
 mode = 'main'
@@ -11,7 +11,7 @@ running = True
 with open(f'sprites_map/map1.txt', mode='r') as file:
     level_map1 = [line.strip() for line in file]
 
-industrial_zone = TiledMap(level_map1)
+industrial_zone = Map(level_map1)
 win_or_lose = WinOrLose(screen, mode)
 rules = Rules()
 start_page = StartPage()
@@ -48,7 +48,7 @@ while running:
 
             with open(f'sprites_map/map{name_of_map}.txt', mode='r') as file:
                 level_map1 = [line.strip() for line in file]
-                industrial_zone = TiledMap(level_map1)
+                industrial_zone = Map(level_map1)
 
         industrial_zone.on_event(event, mode)
         manager.process_events(event)
@@ -80,8 +80,7 @@ while running:
 
         if start_page.start_btn.check_pressed() \
                 or win_or_lose.restart.check_pressed():
-            industrial_zone = TiledMap(level_map1)
-
+            industrial_zone = Map(level_map1)
         industrial_zone.cansel.hide()
         industrial_zone.pause_btn.hide()
         industrial_zone.back_to_menu.hide()
