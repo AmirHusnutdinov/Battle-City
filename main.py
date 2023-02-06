@@ -139,15 +139,16 @@ while running:
         start_page.plus3.hide()
         start_page.settings_btn.show()
 
-    if kill_info == 'green kill':
-        mode = 'red win'
-        pygame.mixer.music.pause()
-        industrial_zone.pause_btn.hide()
+    if mode != 'main':
+        if kill_info == 'green kill':
+            mode = 'red win'
+            pygame.mixer.music.pause()
+            industrial_zone.pause_btn.hide()
 
-    elif kill_info == 'red kill':
-        pygame.mixer.music.pause()
-        mode = 'green win'
-        industrial_zone.pause_btn.hide()
+        elif kill_info == 'red kill':
+            pygame.mixer.music.pause()
+            mode = 'green win'
+            industrial_zone.pause_btn.hide()
 
     start_page.render_back(screen)
 
