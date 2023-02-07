@@ -5,7 +5,6 @@
 
 <details>
   <summary>Скриншоты</summary>
-  
 ![Start_page](https://raw.githubusercontent.com/AmirHusnutdinov/Battle-City/back/Screenshots/1.png)
 ![Rules_Page](https://raw.githubusercontent.com/AmirHusnutdinov/Battle-City/back/Screenshots/2.png)
 ![Settings Page](https://raw.githubusercontent.com/AmirHusnutdinov/Battle-City/back/Screenshots/3.png)
@@ -28,6 +27,9 @@ pip install -r requirements.txt
 ```shell
 python3 main.py
 ```
+## Примечание
+* Настройка громкости музыки сохраняется в отдельный файл
+* Правила игры в меню 
 
 ## Авторы
 * #### Github - [@ilyas13z](https://github.com/ilyas13z)
