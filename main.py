@@ -36,6 +36,13 @@ while running:
 
         if event.type == pygame_gui.UI_CONFIRMATION_DIALOG_CONFIRMED:
             btn_sound.play()
+            with open('music/sound_level.txt', 'w') as f2:
+                f2.write(f'{str(start_page.sound_of_music)}\n')
+                f2.write(f'{str(start_page.sound_of_effects)}\n')
+                f2.write(f'{str(start_page.x1)}\n')
+                f2.write(f'{str(start_page.x2)}\n')
+                f2.write(f'{str(start_page.x3)}\n')
+
             running = False
 
         if event.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:

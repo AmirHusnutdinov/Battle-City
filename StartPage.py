@@ -1,21 +1,22 @@
 import pygame.image
-
+import random
+from pygame import Surface
 from settings import *
 
 
 class StartPage:
     def __init__(self) -> None:
 
-        self.sound_of_music = 0
-        self.sound_of_effects = 0
+        self.sound_of_music = level_of_song
+        self.sound_of_effects = level_of_effects
 
         self.backgrounds_lst = []
         self.position = 0
         self.last_im = None
 
-        self.x1 = 440
-        self.x2 = 440
-        self.x3 = 440
+        self.x1 = x1
+        self.x2 = x2
+        self.x3 = x3
 
         self.backgrounds = (os.listdir(f'{os.path.abspath("BackGrounds")}'))
         self.back_of_settings = pygame.image.load('data/settings.png')
@@ -119,7 +120,7 @@ class StartPage:
             self.x1 -= 10
             self.sound_of_music -= 0.02272727
             self.sound_of_effects -= 0.02272727
-
+            print(self.x1, self.sound_of_music)
             pygame.mixer.music.set_volume(self.sound_of_music)
             btn_sound.set_volume(self.sound_of_effects)
             win_sound.set_volume(self.sound_of_effects)

@@ -1,4 +1,5 @@
 from settings import *
+from pygame import Surface
 
 
 class Rules:

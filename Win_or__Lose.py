@@ -1,4 +1,6 @@
 from settings import *
+import random
+from pygame import Surface
 
 
 class WinOrLose:

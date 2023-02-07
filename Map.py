@@ -1,5 +1,5 @@
 import pygame.sprite
-
+from pygame import Surface
 from Sprites_for_map import Cell, Floors
 from Sprites_bullet import Bullet1, Bullet2
 from settings import *
