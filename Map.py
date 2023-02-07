@@ -164,6 +164,9 @@ class Tank(Sprite):
 
     def __init__(self, x: int, y: int) -> None:
         super().__init__(x, y)
+        self.press_group = None
+        self.tank_group = None
+        self.boxes = None
         self.normal = 0
         self.cur_frame = 0
         self.is_move = False
@@ -272,16 +275,16 @@ class Tank2(Tank):
         if self.is_shot and self.shotTimer == 0:
             if self.side == 1:
                 shoot_sound.play()
-                self.bullets.add(Bullet1(self, self.rect.x, self.rect.y, -10, 0))
+                self.bullets.add(Bullet1(self.rect.x, self.rect.y, -10, 0))
             if self.side == 3:
                 shoot_sound.play()
-                self.bullets.add(Bullet1(self, self.rect.x, self.rect.y, 10, 0))
+                self.bullets.add(Bullet1(self.rect.x, self.rect.y, 10, 0))
             if self.side == 2:
                 shoot_sound.play()
-                self.bullets.add(Bullet1(self, self.rect.x, self.rect.y, 0, -10))
+                self.bullets.add(Bullet1(self.rect.x, self.rect.y, 0, -10))
             if self.side == 4:
                 shoot_sound.play()
-                self.bullets.add(Bullet1(self, self.rect.x, self.rect.y, 0, 10))
+                self.bullets.add(Bullet1(self.rect.x, self.rect.y, 0, 10))
             self.shotTimer = self.shotDelay
         self.bullets.draw(screen)
         self.bullets.update()
@@ -362,16 +365,16 @@ class Tank1(Tank):
         if self.is_shot and self.shotTimer == 0:
             if self.side == 1:
                 shoot_sound.play()
-                self.bullets.add(Bullet2(self, self.rect.x, self.rect.y, -10, 0))
+                self.bullets.add(Bullet2(self.rect.x, self.rect.y, -10, 0))
             if self.side == 3:
                 shoot_sound.play()
-                self.bullets.add(Bullet2(self, self.rect.x, self.rect.y, 10, 0))
+                self.bullets.add(Bullet2(self.rect.x, self.rect.y, 10, 0))
             if self.side == 2:
                 shoot_sound.play()
-                self.bullets.add(Bullet2(self, self.rect.x, self.rect.y, 0, -10))
+                self.bullets.add(Bullet2(self.rect.x, self.rect.y, 0, -10))
             if self.side == 4:
                 shoot_sound.play()
-                self.bullets.add(Bullet2(self, self.rect.x, self.rect.y, 0, 10))
+                self.bullets.add(Bullet2(self.rect.x, self.rect.y, 0, 10))
             self.shotTimer = self.shotDelay
         self.bullets.draw(screen)
         self.bullets.update()
